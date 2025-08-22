@@ -49,7 +49,7 @@ export const HeroSection = ({
             <p className="text-muted-foreground mb-8 max-w-xl lg:text-xl">
               Simplify your transactions with our all-in-one{" "}
               <span className="text-primary font-bold text-2xl italic">
-                e Pay
+                ePay
               </span>{" "}
               wallet. Send, receive, and manage money anytime, anywhere—safe
               and hassle-free.

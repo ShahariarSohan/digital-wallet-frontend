@@ -35,7 +35,7 @@ export default function Footer() {
               Powered by{" "}
               <span className="text-primary font-bold  italic">
                 {" "}
-                e pay
+                ePay
               </span>{" "}
             </li>
             <li className="text-muted-foreground transition hover:text-muted-foreground">
@@ -53,7 +53,7 @@ export default function Footer() {
           </ul>
           <ul className="text-center mt-8 text-muted-foreground">
             © {new Date().getFullYear()}{" "}
-            <span className="text-primary font-bold  italic"> e pay</span>. All
+            <span className="text-primary font-bold  italic"> ePay</span>. All
             rights reserved.
           </ul>
         </div>

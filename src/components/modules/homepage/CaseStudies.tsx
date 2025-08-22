@@ -35,7 +35,8 @@ export const CaseStudies = () => {
                     </p>
                   </div>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg"
+                    className="h-16 w-16"
+                    src="https://i.ibb.co.com/whrm2sYm/flat-design-bookstore-logo-template-23-2149325325.jpg"
                     alt="logo"
                   />
                 </div>
@@ -90,7 +91,8 @@ export const CaseStudies = () => {
                     <p className="text-muted-foreground">E-commerce Manager</p>
                   </div>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg"
+                    className="h-16 w-16"
+                    src="https://i.ibb.co.com/pBQdKMVX/online-shop-logo-design-free-vector.jpg"
                     alt="logo"
                   />
                 </div>
