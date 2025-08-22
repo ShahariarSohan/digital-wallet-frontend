@@ -25,7 +25,7 @@ const navigationLinks = [
 
 export default function Navbar() {
   return (
-    <header className="border-b px-4 md:px-6 container mx-auto">
+    <header className=" px-4  container mx-auto">
       <div className="flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">
@@ -79,10 +79,12 @@ export default function Navbar() {
             </PopoverContent>
           </Popover>
           {/* Main nav */}
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
-              <Logo></Logo>
-            </a>
+          <div className="flex items-center gap-6 text-primary">
+            <div className="flex items-center gap-1 text-primary">
+              {" "}
+              <Logo></Logo> <h1 className=" text-xl font-bold italic">Pay</h1>
+            </div>
+
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">

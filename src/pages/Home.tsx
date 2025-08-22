@@ -1,7 +1,9 @@
+import { HeroSection } from "@/components/modules/homepage/HeroSection";
+
 export default function Home() {
   return (
-    <div>
-      <h1>This is Home component</h1>
+    <div className="container mx-auto px-4">
+      <HeroSection></HeroSection>
     </div>
   );
 }
