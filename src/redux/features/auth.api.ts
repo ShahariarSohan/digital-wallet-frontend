@@ -40,6 +40,13 @@ export const authApi = baseApi.injectEndpoints({
         providesTags: ["USER"],
       }),
     }),
+    adminInfo: builder.query({
+      query: () => ({
+        url: "/admin/me",
+        method: "GET",
+        providesTags: ["USER"],
+      }),
+    }),
     logout: builder.mutation({
       query: () => ({
         url: "/auth/logout",
@@ -49,4 +56,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useRegisterMutation,useLoginMutation,useAgentInfoQuery,useUserInfoQuery,useLogoutMutation } = authApi;
+export const { useRegisterMutation,useLoginMutation,useAgentInfoQuery,useUserInfoQuery,useLogoutMutation,useAdminInfoQuery } = authApi;

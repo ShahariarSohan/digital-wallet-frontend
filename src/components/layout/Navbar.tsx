@@ -16,33 +16,39 @@ import { ModeToggle } from "./ModeToggle";
 import { Link } from "react-router";
 import {
   authApi,
+  useAdminInfoQuery,
   useAgentInfoQuery,
   useLogoutMutation,
   useUserInfoQuery,
 } from "@/redux/features/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
+import { toast } from "sonner";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-  { href: "/", label: "Home" ,role:"PUBLIC" },
-  { href: "/features", label: "Features" ,role:"PUBLIC" },
-  { href: "/about", label: "About", role:"PUBLIC" },
-  { href: "/contact", label: "Contact", role:"PUBLIC" },
-  { href: "/faq", label: "FAQ", role:"PUBLIC" },
-  // { href: "/admin", label: "Dashboard", role:role.admin },
-  // { href: "/agent", label: "Dashboard", role:role.agent },
+  { href: "/", label: "Home" ,role:"public" },
+  { href: "/features", label: "Features" ,role:"public" },
+  { href: "/about", label: "About", role:"public" },
+  { href: "/contact", label: "Contact", role:"public" },
+  { href: "/faq", label: "FAQ", role:"public" },
+  { href: "/admin", label: "Dashboard", role:role.admin },
+  { href: "/agent", label: "Dashboard", role:role.agent },
   { href: "/user", label: "Dashboard", role:role.user },
 ];
 
 export default function Navbar() {
   const { data: agentData } = useAgentInfoQuery(undefined);
   const { data: userData } = useUserInfoQuery(undefined);
+  const { data: adminData } = useAdminInfoQuery(undefined);
+  const loggedInEmail=agentData?.data?.email || userData?.data?.email || adminData?.data?.email;
+  const loggedInRole =agentData?.data?.role || userData?.data?.role || adminData?.data?.role;
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const handleLogout = async() => {
     await logout(undefined).unwrap();
     dispatch(authApi.util.resetApiState());
+    toast.success("Logged Out")
   };
 
   return (
@@ -89,11 +95,28 @@ export default function Navbar() {
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                   {navigationLinks.map((link, index) => (
-                    <NavigationMenuItem key={index} className="w-full">
-                      <NavigationMenuLink asChild className="py-1.5">
-                        <Link to={link.href}>{link.label}</Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
+                    <div>
+                      {link.role === "public" && (
+                        <NavigationMenuItem key={index} className="w-full">
+                          <NavigationMenuLink
+                            asChild
+                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                          >
+                            <Link to={link.href}>{link.label}</Link>
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      )}
+                      {link.role === loggedInRole && (
+                        <NavigationMenuItem key={index} className="w-full">
+                          <NavigationMenuLink
+                            asChild
+                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                          >
+                            <Link to={link.href}>{link.label}</Link>
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      )}
+                    </div>
                   ))}
                 </NavigationMenuList>
               </NavigationMenu>
@@ -110,14 +133,28 @@ export default function Navbar() {
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
                 {navigationLinks.map((link, index) => (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuLink
-                      asChild
-                      className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                    >
-                      <Link to={link.href}>{link.label}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+                  <div>
+                    {link.role === "public" && (
+                      <NavigationMenuItem key={index} className="w-full">
+                        <NavigationMenuLink
+                          asChild
+                          className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                        >
+                          <Link to={link.href}>{link.label}</Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    )}
+                    {link.role === loggedInRole && (
+                      <NavigationMenuItem key={index} className="w-full">
+                        <NavigationMenuLink
+                          asChild
+                          className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                        >
+                          <Link to={link.href}>{link.label}</Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    )}
+                  </div>
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
@@ -125,7 +162,7 @@ export default function Navbar() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {userData?.data?.email || agentData?.data?.email ? (
+          {loggedInEmail ? (
             <Button
               onClick={handleLogout}
               size="sm"
@@ -138,7 +175,6 @@ export default function Navbar() {
               <Link to="/login">Login</Link>
             </Button>
           )}
-
           <ModeToggle></ModeToggle>
         </div>
       </div>

@@ -8,19 +8,18 @@ import AdminProfile from "@/pages/admin/AdminProfile";
 
 export const adminSidebar: ISiderbar[] = [
   {
-    title: "Overview",
+    title: "Dashboard",
     items: [
       {
-        title: "All",
+        title: "Overview",
         url: "/admin/overview",
         Component: AdminOverview,
       },
-     
     ],
   },
   {
     title: "Management",
-    
+
     items: [
       {
         title: "Users",
@@ -36,10 +35,10 @@ export const adminSidebar: ISiderbar[] = [
   },
   {
     title: "Transactions",
-   
+
     items: [
       {
-        title: "All",
+        title: "All Transactions",
         url: "/admin/transactions",
         Component: AllTransactions,
       },
@@ -47,7 +46,7 @@ export const adminSidebar: ISiderbar[] = [
   },
   {
     title: "Profile",
-   
+
     items: [
       {
         title: "Settings",

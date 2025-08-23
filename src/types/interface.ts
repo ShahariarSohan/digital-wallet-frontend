@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 
 export type TRole = "user" | "admin" | "agent";
 export interface ISiderbar{
-    title: string;
+    title?: string;
     items: {
         title: string;
         url: string;

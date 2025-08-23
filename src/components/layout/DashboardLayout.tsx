@@ -19,7 +19,7 @@ export default function Dashboard() {
             <SidebarTrigger className="-ml-1" />
             <Link to="/">
               {" "}
-              <Home className="font-bold" size={17}></Home>
+              <Home className="text-foreground" size={17}></Home>
             </Link>
           </div>
           <Separator

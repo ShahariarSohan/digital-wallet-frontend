@@ -11,6 +11,8 @@ import { generateRoutes } from "@/utils/generateRoutes";
 
 import { createBrowserRouter } from "react-router";
 import { adminSidebar } from "./adminSidebar";
+import { agentSidebar } from "./agentSidebar";
+import { userSidebar } from "./userSidebar";
 const router = createBrowserRouter([
   {
     Component: App,
@@ -46,10 +48,12 @@ const router = createBrowserRouter([
   {
     Component: DashboardLayout,
     path: "/agent",
+    children:[...generateRoutes(agentSidebar)]
   },
   {
     Component: DashboardLayout,
-    path: "/agent",
+    path: "/user",
+    children:[...generateRoutes(userSidebar)]
   },
   {
     Component: Login,
