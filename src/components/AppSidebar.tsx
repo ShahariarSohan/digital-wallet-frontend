@@ -1,6 +1,5 @@
 import * as React from "react";
 
-
 import {
   Sidebar,
   SidebarContent,
@@ -16,17 +15,17 @@ import {
 import { Link } from "react-router";
 import Logo from "@/assets/icons/Logo";
 import { generateSidebarItems } from "@/utils/generateSidebarItems";
-import { useAdminInfoQuery, useAgentInfoQuery, useUserInfoQuery } from "@/redux/features/auth.api";
-
-
+import {
+  useAdminInfoQuery,
+  useAgentInfoQuery,
+  useUserInfoQuery,
+} from "@/redux/features/auth.api";
 
 // This is sample data.
 
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
   const { data: agentData } = useAgentInfoQuery(undefined);
-    const { data: userData } = useUserInfoQuery(undefined);
+  const { data: userData } = useUserInfoQuery(undefined);
   const { data: adminData } = useAdminInfoQuery(undefined);
   const role =
     agentData?.data?.role || userData?.data?.role || adminData?.data?.role;

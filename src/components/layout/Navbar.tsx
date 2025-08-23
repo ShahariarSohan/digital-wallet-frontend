@@ -95,7 +95,7 @@ export default function Navbar() {
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                   {navigationLinks.map((link, index) => (
-                    <div>
+                    <div key={index}>
                       {link.role === "public" && (
                         <NavigationMenuItem key={index} className="w-full">
                           <NavigationMenuLink
@@ -133,7 +133,7 @@ export default function Navbar() {
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
                 {navigationLinks.map((link, index) => (
-                  <div>
+                  <div key={index}>
                     {link.role === "public" && (
                       <NavigationMenuItem key={index} className="w-full">
                         <NavigationMenuLink
@@ -166,12 +166,12 @@ export default function Navbar() {
             <Button
               onClick={handleLogout}
               size="sm"
-              className="text-sm text-white "
+              className="text-sm "
             >
               Logout
             </Button>
           ) : (
-            <Button asChild size="sm" className="text-sm text-white ">
+            <Button asChild size="sm" className="text-sm">
               <Link to="/login">Login</Link>
             </Button>
           )}

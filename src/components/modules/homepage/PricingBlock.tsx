@@ -8,9 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
 
 export const PricingBlock = () => {
   const [isAnnually, setIsAnnually] = useState(false);
+  const handlePurchase = () => {
+    toast.success("Successfully purchased your plan")
+  }
   return (
     <section className="py-10 lg:py-32">
       <div className="container">
@@ -88,7 +92,12 @@ export const PricingBlock = () => {
                     <span>No hidden fees</span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6">Get Started</Button>
+                <Button
+                  onClick={() => handlePurchase()}
+                  className="w-full mt-6"
+                >
+                  Get Started
+                </Button>
               </div>
             </div>
 
@@ -126,7 +135,9 @@ export const PricingBlock = () => {
                     <span>Priority customer support</span>
                   </li>
                 </ul>
-                <Button className="w-full">Upgrade to Pro</Button>
+                <Button onClick={() => handlePurchase()} className="w-full">
+                  Upgrade to Pro
+                </Button>
               </div>
             </div>
 
@@ -135,7 +146,9 @@ export const PricingBlock = () => {
               <Badge className="mb-8 block w-fit bg-slate-400">BUSINESS</Badge>
               {isAnnually ? (
                 <>
-                  <span className="text-4xl font-medium text-primary">$249</span>
+                  <span className="text-4xl font-medium text-primary">
+                    $249
+                  </span>
                   <p className="text-muted-foreground">Per year</p>
                 </>
               ) : (
@@ -164,7 +177,9 @@ export const PricingBlock = () => {
                     <span>Unlimited business transactions</span>
                   </li>
                 </ul>
-                <Button className="w-full">Go Business</Button>
+                <Button onClick={() => handlePurchase()} className="w-full">
+                  Go Business
+                </Button>
               </div>
             </div>
           </div>

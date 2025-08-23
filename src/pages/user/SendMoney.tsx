@@ -1,7 +1,9 @@
+import { SendMoneyForm } from "@/components/modules/user/SendMoneyForm";
+
 export default function SendMoney() {
   return (
     <div>
-      <h1>This is SendMoney component</h1>
+     <SendMoneyForm></SendMoneyForm>
     </div>
   );
 }

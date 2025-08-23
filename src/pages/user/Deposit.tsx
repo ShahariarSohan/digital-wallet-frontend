@@ -1,7 +1,9 @@
+import { DepositForm } from "@/components/modules/user/DepositForm";
+
 export default function Deposit() {
   return (
     <div>
-      <h1>This is Deposit component</h1>
+      <DepositForm></DepositForm>
     </div>
   );
 }

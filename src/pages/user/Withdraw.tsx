@@ -1,7 +1,9 @@
+import { WithdrawForm } from "@/components/modules/user/WithdrawForm";
+
 export default function Withdraw() {
   return (
     <div>
-      <h1>This is Withdraw component</h1>
+      <WithdrawForm></WithdrawForm>
     </div>
   );
 }

@@ -9,10 +9,14 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import { generateRoutes } from "@/utils/generateRoutes";
 
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebar } from "./adminSidebar";
 import { agentSidebar } from "./agentSidebar";
 import { userSidebar } from "./userSidebar";
+import Unauthorized from "@/pages/Unauthorized";
+import { withAuth } from "@/utils/withAuth";
+import { role } from "@/constants/role";
+import type { TRole } from "@/types/interface";
 const router = createBrowserRouter([
   {
     Component: App,
@@ -41,19 +45,28 @@ const router = createBrowserRouter([
     ],
   },
   {
-    Component: DashboardLayout,
+    Component: withAuth(DashboardLayout, role.admin as TRole),
     path: "/admin",
-    children: [...generateRoutes(adminSidebar)],
+    children: [
+      { index: true, element: <Navigate to="/admin/overview" /> },
+      ...generateRoutes(adminSidebar),
+    ],
   },
   {
-    Component: DashboardLayout,
+    Component: withAuth(DashboardLayout, role.agent as TRole),
     path: "/agent",
-    children:[...generateRoutes(agentSidebar)]
+    children: [
+      { index: true, element: <Navigate to="/agent/overview" /> },
+      ...generateRoutes(agentSidebar),
+    ],
   },
   {
-    Component: DashboardLayout,
+    Component: withAuth(DashboardLayout, role.user as TRole),
     path: "/user",
-    children:[...generateRoutes(userSidebar)]
+    children: [
+      { index: true, element: <Navigate to="/user/overview" /> },
+      ...generateRoutes(userSidebar),
+    ],
   },
   {
     Component: Login,
@@ -62,6 +75,10 @@ const router = createBrowserRouter([
   {
     Component: Register,
     path: "/register",
+  },
+  {
+    Component: Unauthorized,
+    path: "/unauthorized",
   },
 ]);
 
