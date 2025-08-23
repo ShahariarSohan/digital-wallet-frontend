@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,17 +14,37 @@ import {
 } from "@/components/ui/popover";
 import { ModeToggle } from "./ModeToggle";
 import { Link } from "react-router";
+import {
+  authApi,
+  useAgentInfoQuery,
+  useLogoutMutation,
+  useUserInfoQuery,
+} from "@/redux/features/auth.api";
+import { useAppDispatch } from "@/redux/hook";
+import { role } from "@/constants/role";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-  { href: "/", label: "Home" },
-  { href: "/features", label: "Features" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/", label: "Home" ,role:"PUBLIC" },
+  { href: "/features", label: "Features" ,role:"PUBLIC" },
+  { href: "/about", label: "About", role:"PUBLIC" },
+  { href: "/contact", label: "Contact", role:"PUBLIC" },
+  { href: "/faq", label: "FAQ", role:"PUBLIC" },
+  // { href: "/admin", label: "Dashboard", role:role.admin },
+  // { href: "/agent", label: "Dashboard", role:role.agent },
+  { href: "/user", label: "Dashboard", role:role.user },
 ];
 
 export default function Navbar() {
+  const { data: agentData } = useAgentInfoQuery(undefined);
+  const { data: userData } = useUserInfoQuery(undefined);
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+  const handleLogout = async() => {
+    await logout(undefined).unwrap();
+    dispatch(authApi.util.resetApiState());
+  };
+
   return (
     <header className=" px-4 container mx-auto">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -104,9 +125,20 @@ export default function Navbar() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Button asChild size="sm" className="text-sm text-white ">
-            <Link to="/login">Login</Link>
-          </Button>
+          {userData?.data?.email || agentData?.data?.email ? (
+            <Button
+              onClick={handleLogout}
+              size="sm"
+              className="text-sm text-white "
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button asChild size="sm" className="text-sm text-white ">
+              <Link to="/login">Login</Link>
+            </Button>
+          )}
+
           <ModeToggle></ModeToggle>
         </div>
       </div>

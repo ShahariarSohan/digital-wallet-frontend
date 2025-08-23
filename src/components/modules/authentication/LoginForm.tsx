@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useLoginMutation } from "@/redux/features/auth.api";
 
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 
@@ -27,10 +27,10 @@ interface Login2Props {
 
 export const LoginForm = ({
   heading = "Login",
-
   buttonText = "Login",
   signupText = "Need an account?",
 }: Login2Props) => {
+  const navigate=useNavigate()
   const[login]=useLoginMutation()
    const form = useForm({
     defaultValues: {
@@ -49,6 +49,7 @@ export const LoginForm = ({
       const result = await login(userInfo).unwrap();
       console.log(result);
       toast.success(" Logged In Successfully");
+      navigate("/")
       
     } catch (err: any) {
       console.error(err);
