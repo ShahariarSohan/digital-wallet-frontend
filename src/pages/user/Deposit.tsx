@@ -1,4 +1,5 @@
-import { DepositForm } from "@/components/modules/user/DepositForm";
+import DepositForm from "@/components/modules/user/DepositForm";
+
 
 export default function Deposit() {
   return (

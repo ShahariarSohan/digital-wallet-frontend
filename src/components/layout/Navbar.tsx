@@ -14,16 +14,11 @@ import {
 } from "@/components/ui/popover";
 import { ModeToggle } from "./ModeToggle";
 import { Link } from "react-router";
-import {
-  authApi,
-  useAdminInfoQuery,
-  useAgentInfoQuery,
-  useLogoutMutation,
-  useUserInfoQuery,
-} from "@/redux/features/auth.api";
+
 import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
 import { toast } from "sonner";
+import { authApi, useAdminInfoQuery, useAgentInfoQuery, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [

@@ -49,7 +49,7 @@ export const adminSidebar: ISiderbar[] = [
 
     items: [
       {
-        title: "Settings",
+        title: "Info",
         url: "/admin/profile",
         Component: AdminProfile,
       },

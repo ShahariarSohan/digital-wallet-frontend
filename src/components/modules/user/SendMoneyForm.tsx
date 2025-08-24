@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,61 +11,53 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {  emailAmountSchema, type EmailAmountSchemaType } from "@/schemas/schema";
+import { useSendMoneyMutation } from "@/redux/features/user/user.api";
+import { failAlert, successAlert } from "@/alerts/sweetAlert";
 
-interface SendMoneyFormProps {
-  heading?: string;
-  buttonText?: string;
-}
-
-// Zod schema for sending money
-const sendMoneySchema = z.object({
-  email: z.email(),
-  amount: z.preprocess((val) => {
-    const num = Number(val);
-    return isNaN(num) ? val : num; // leave invalid string to fail validation
-  }, z.number({ error: "Amount must be a number" }).min(100, { message: "Amount must be at least 100" })),
-});
-
-// Type inferred from Zod
-type SendMoneyFormValues = z.infer<typeof sendMoneySchema>;
-
-export const SendMoneyForm = ({
-  heading = "Send Money",
-  buttonText = "Send",
-}: SendMoneyFormProps) => {
-  const form = useForm<SendMoneyFormValues>({
-    resolver: zodResolver(sendMoneySchema),
+export default function SendMoneyForm() {
+  const [sendMoney] = useSendMoneyMutation()
+  const form = useForm<EmailAmountSchemaType>({
+    resolver: zodResolver(emailAmountSchema),
     defaultValues: { email: "", amount: 100 },
     mode: "onBlur",
   });
 
-  const onSubmit = (data: SendMoneyFormValues) => {
-    console.log("Send Money Data:", data);
-    // handle send money logic here
-  };
+  const onSubmit = async (data: EmailAmountSchemaType) => {
+    console.log("Send Money:", data);
+    try {
+      const res = await sendMoney(data).unwrap()
+      console.log(res);
+      successAlert(res.message, res.data?.[0].amount, res.data?.[0].transactionFee)
+    } catch (err: any) {
+      console.log(err);
+      if (err?.data?.message === "No Email exist") {
+        return failAlert("Enter a valid email")
+      }
+      failAlert(err?.data?.message);
+            
+    };
+  }
 
-  return (
-    <section className="bg-muted min-h-screen py-10">
-      <div className="flex h-full items-center justify-center">
-        <div className="flex flex-col items-center gap-6 lg:justify-start">
-          <div className="flex items-center gap-1 text-primary">
-            <Logo />
-            <h1 className="text-xl font-bold italic">Pay</h1>
-          </div>
+    return (
+      <section className="bg-muted min-h-screen py-10">
+        <div className="flex h-full items-center justify-center">
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex items-center gap-1 text-primary">
+              <Logo />
+              <h1 className="text-xl font-bold italic">Pay</h1>
+            </div>
 
-          <div className="min-w-sm border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
-            {heading && <h1 className="text-xl font-semibold">{heading}</h1>}
+            <div className="min-w-sm bg-background w-full max-w-sm rounded-md border px-6 py-8 shadow-md">
+              <h1 className="text-xl font-semibold mb-4">Send Money</h1>
 
-            <div className="w-full">
               <Form {...form}>
                 <form
-                  id="send_money_form"
+                  id="sendmoney_form"
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-5"
                 >
-                  {/* Email Field */}
                   <FormField
                     control={form.control}
                     name="email"
@@ -76,8 +66,9 @@ export const SendMoneyForm = ({
                         <FormLabel>Recipient Email</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Enter recipient email"
                             type="email"
+                            placeholder="recipient@example.com"
+                            autoComplete="email"
                             {...field}
                           />
                         </FormControl>
@@ -86,7 +77,6 @@ export const SendMoneyForm = ({
                     )}
                   />
 
-                  {/* Amount Field */}
                   <FormField
                     control={form.control}
                     name="amount"
@@ -95,32 +85,25 @@ export const SendMoneyForm = ({
                         <FormLabel>Amount</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Enter amount"
                             type="text"
+                            placeholder="Enter amount"
                             {...field}
                           />
                         </FormControl>
-                        <FormDescription className="sr-only">
-                          Enter an amount greater than or equal to 100
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+
+                  <Button type="submit" className="w-full bg-primary mt-2">
+                    Send
+                  </Button>
                 </form>
               </Form>
             </div>
-
-            <Button
-              form="send_money_form"
-              type="submit"
-              className="w-full bg-primary mt-2"
-            >
-              {buttonText}
-            </Button>
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
+      </section>
+    );
+  
+}

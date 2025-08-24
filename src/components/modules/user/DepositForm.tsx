@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,93 +11,77 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { amountSchema, type AmountSchemaType } from "@/schemas/schema";
+import { useDepositMutation } from "@/redux/features/user/user.api";
 
-interface DepositFormProps {
-  heading?: string;
-  buttonText?: string;
-}
+import { failAlert, successAlert } from "@/alerts/sweetAlert";
 
-// Zod schema with preprocessing
-const amountSchema = z.object({
-  amount: z.preprocess((val) => {
-    const num = Number(val);
-    return isNaN(num) ? val : num; // leave invalid string to fail validation
-  }, z.number({ error: "Amount must be a number" }).min(100, { message: "Amount must be at least 100" })),
-});
+export default function DepositForm() {
+  const [deposit] = useDepositMutation();
 
-// Type inferred from Zod
-type AmountFormValues = z.infer<typeof amountSchema>;
-
-export const DepositForm = ({
-  heading = "Deposit",
-  buttonText = "Deposit",
-}: DepositFormProps) => {
-  const form = useForm<AmountFormValues>({
+  const form = useForm<AmountSchemaType>({
     resolver: zodResolver(amountSchema),
     defaultValues: { amount: 100 },
-    mode: "onBlur", // validate as user leaves the input
+    mode: "onBlur",
   });
 
-  const onSubmit = (data: AmountFormValues) => {
-    console.log("Deposit Amount:", data.amount);
-    // handle deposit logic here
+  const onSubmit = async (data: AmountSchemaType) => {
+    console.log("Deposit:", data);
+    try {
+      const res = await deposit(data).unwrap();
+      console.log(res);
+      successAlert(res.message,res.data?.[0].amount,res.data?.[0].transactionFee)
+    } catch (err: any) {
+      console.log(err);
+      failAlert("Deposit failed")
+    }
   };
 
   return (
     <section className="bg-muted min-h-screen py-10">
       <div className="flex h-full items-center justify-center">
-        <div className="flex flex-col items-center gap-6 lg:justify-start">
+        <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-1 text-primary">
             <Logo />
             <h1 className="text-xl font-bold italic">Pay</h1>
           </div>
 
-          <div className="min-w-sm border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
-            {heading && <h1 className="text-xl font-semibold">{heading}</h1>}
+          <div className="min-w-sm bg-background w-full max-w-sm rounded-md border px-6 py-8 shadow-md">
+            <h1 className="text-xl font-semibold mb-4">Deposit</h1>
 
-            <div className="w-full">
-              <Form {...form}>
-                <form
-                  id="deposit_form"
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-5"
-                >
-                  <FormField
-                    control={form.control}
-                    name="amount"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Amount</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your amount"
-                            type="text"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormDescription className="sr-only">
-                          Enter an amount greater than or equal to 100
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </form>
-              </Form>
-            </div>
+            <Form {...form}>
+              <form
+                id="deposit_form"
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
+                <FormField
+                  control={form.control}
+                  name="amount"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Amount</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Enter amount"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <Button
-              form="deposit_form"
-              type="submit"
-              className="w-full bg-primary mt-2"
-            >
-              {buttonText}
-            </Button>
+                <Button type="submit" className="w-full bg-primary mt-2">
+                  Deposit
+                </Button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>
     </section>
   );
-};
+}

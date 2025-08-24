@@ -54,7 +54,7 @@ export const userSidebar: ISiderbar[] = [
 
     items: [
       {
-        title: "Update",
+        title: "Info",
         url: "/user/profile",
         Component: UserProfile,
       },

@@ -1,7 +1,9 @@
+import AgentDashboardOverview from "@/components/modules/agent/AgentDashboardOverview";
+
 export default function AgentOverview() {
   return (
     <div>
-      <h1>This is AgentOverview component</h1>
+      <AgentDashboardOverview></AgentDashboardOverview>
     </div>
   );
 }

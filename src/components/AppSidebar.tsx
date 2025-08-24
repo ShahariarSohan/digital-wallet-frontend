@@ -15,11 +15,8 @@ import {
 import { Link } from "react-router";
 import Logo from "@/assets/icons/Logo";
 import { generateSidebarItems } from "@/utils/generateSidebarItems";
-import {
-  useAdminInfoQuery,
-  useAgentInfoQuery,
-  useUserInfoQuery,
-} from "@/redux/features/auth.api";
+import { useAdminInfoQuery, useAgentInfoQuery, useUserInfoQuery } from "@/redux/features/auth/auth.api";
+
 
 // This is sample data.
 

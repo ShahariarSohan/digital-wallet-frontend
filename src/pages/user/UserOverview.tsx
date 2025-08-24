@@ -1,7 +1,9 @@
+import UserDashboardOverview from "@/components/modules/user/UserDashboardOverview";
+
 export default function UserOverview() {
   return (
     <div>
-      <h1>This is UserOverview component</h1>
+      <UserDashboardOverview></UserDashboardOverview>
     </div>
   );
 }

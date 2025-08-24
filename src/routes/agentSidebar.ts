@@ -5,8 +5,9 @@ import type { ISiderbar } from "@/types/interface";
 import AgentOverview from "@/pages/agent/AgentOverview";
 import AgentTransactions from "@/pages/agent/AgentTransactions";
 import AgentProfile from "@/pages/agent/AgentProfile";
-import CashIn from "@/pages/agent/Cashin";
-import CashOut from "@/pages/agent/Cashout";
+import CashIn from "@/pages/agent/CashIn";
+import CashOut from "@/pages/agent/CashOut";
+
 
 export const agentSidebar: ISiderbar[] = [
   {
@@ -39,7 +40,7 @@ export const agentSidebar: ISiderbar[] = [
     title: "Transactions",
     items: [
       {
-        title: "With Users",
+        title: "My Transactions",
         url: "/agent/transactions",
         Component: AgentTransactions,
       },
@@ -50,7 +51,7 @@ export const agentSidebar: ISiderbar[] = [
 
     items: [
       {
-        title: "Update",
+        title: "Info",
         url: "/agent/profile",
         Component: AgentProfile,
       },

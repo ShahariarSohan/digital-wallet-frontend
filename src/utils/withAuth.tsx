@@ -1,4 +1,5 @@
-import { useAdminInfoQuery, useAgentInfoQuery, useUserInfoQuery } from "@/redux/features/auth.api";
+
+import { useAdminInfoQuery, useAgentInfoQuery, useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import type { TRole } from "@/types/interface";
 import type { ComponentType } from "react";
 import { Navigate } from "react-router";

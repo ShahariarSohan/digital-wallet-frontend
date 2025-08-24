@@ -12,28 +12,35 @@ import { Input } from "@/components/ui/input";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { amountSchema, type AmountSchemaType } from "@/schemas/schema";
-import { useWithdrawMutation } from "@/redux/features/user/user.api";
-import { failAlert, successAlert } from "@/alerts/sweetAlert";
+import {
+  emailAmountSchema,
+  type EmailAmountSchemaType,
+} from "@/schemas/schema";
+import { failAlert, successAlert2 } from "@/alerts/sweetAlert";
+import { useCashInMutation } from "@/redux/features/agent/agent.api";
 
-export default function WithdrawForm() {
-  const [withdraw]=useWithdrawMutation()
-  const form = useForm<AmountSchemaType>({
-    resolver: zodResolver(amountSchema),
-    defaultValues: { amount: 100 },
+export default function CashInForm() {
+  const[cashIn]=useCashInMutation()
+    const form = useForm<EmailAmountSchemaType>({
+    resolver: zodResolver(emailAmountSchema),
+    defaultValues: { email: "", amount: 100 },
     mode: "onBlur",
   });
 
-  const onSubmit =async (data: AmountSchemaType) => {
-    console.log("Withdraw:", data);
-     try {
-          const res = await withdraw(data).unwrap()
+  const onSubmit = async(data: EmailAmountSchemaType) => {
+    console.log("Cash In:", data); // { email, amount:number }
+    try {
+          const res = await cashIn(data).unwrap()
           console.log(res);
-          successAlert(res.message,res.data?.[0].amount,res.data?.[0].transactionFee)
+          successAlert2(res.message, res.data?.[0].amount, res.data?.[0].commission)
         } catch (err: any) {
           console.log(err);
-          failAlert(err?.data?.message)
-        }
+          if (err?.data?.message === "No Email exist") {
+            return failAlert("Enter a valid email")
+          }
+          failAlert(err?.data?.message);
+                
+        };
   };
 
   return (
@@ -46,14 +53,35 @@ export default function WithdrawForm() {
           </div>
 
           <div className="min-w-sm bg-background w-full max-w-sm rounded-md border px-6 py-8 shadow-md">
-            <h1 className="text-xl font-semibold mb-4">Withdraw</h1>
+            <h1 className="text-xl font-semibold mb-4">Cash In</h1>
 
             <Form {...form}>
               <form
-                id="withdraw_form"
+                id="cashin_form"
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
+                {/* Email */}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Recipient Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="recipient@example.com"
+                          autoComplete="email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Amount */}
                 <FormField
                   control={form.control}
                   name="amount"
@@ -73,7 +101,7 @@ export default function WithdrawForm() {
                 />
 
                 <Button type="submit" className="w-full bg-primary mt-2">
-                  Withdraw
+                  Cash In
                 </Button>
               </form>
             </Form>

@@ -1,15 +1,16 @@
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Password from "@/components/Password";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useRegisterMutation } from "@/redux/features/auth.api";
+
 import { toast } from "sonner";
+import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 interface Login2Props {
   heading?: string;
   logo?: {
@@ -61,7 +62,9 @@ export const RegisterForm = ({
   signupText = "Already have an account?",
 }: Login2Props) => {
   
+  
   const roles: IRole[] = [{ role: "user" }, { role: "agent" }]
+  const navigate=useNavigate()
   const [register]=useRegisterMutation()
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -86,6 +89,7 @@ export const RegisterForm = ({
        const res= await register(userInfo).unwrap();
        console.log(res);
        toast.success("Successfully registered");
+       navigate("/login")
        
      } catch (error) {
        console.error(error);
@@ -133,7 +137,7 @@ export const RegisterForm = ({
                         <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="sohan@gmail.com"
+                            placeholder="jhon@gmail.com"
                             type="email"
                             {...field}
                           />
