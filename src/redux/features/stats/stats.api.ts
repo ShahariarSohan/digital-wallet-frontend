@@ -6,7 +6,28 @@ export const statsApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/stats/transaction",
             method: "GET",
-        providesTags:["TRANSACTIONSTATS"]
+        providesTags:["STATS"]
+      }),
+    }),
+    allUserStats: builder.query({
+      query: () => ({
+        url: "/stats/user",
+            method: "GET",
+        providesTags:["STATS"]
+      }),
+    }),
+    allAgentStats: builder.query({
+      query: () => ({
+        url: "/stats/agent",
+            method: "GET",
+        providesTags:["STATS"]
+      }),
+    }),
+    myTransactionStats: builder.query({
+      query: () => ({
+        url: "/stats/myTransaction",
+            method: "GET",
+        
       }),
     }),
     
@@ -14,4 +35,4 @@ export const statsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {useAllTransactionStatsQuery} = statsApi;
+export const {useAllTransactionStatsQuery,useAllAgentStatsQuery,useAllUserStatsQuery,useMyTransactionStatsQuery} = statsApi;

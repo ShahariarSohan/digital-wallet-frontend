@@ -1,7 +1,12 @@
 "use client";
 
+import SkeletonCard from "@/components/SkeletonCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAllTransactionStatsQuery } from "@/redux/features/stats/stats.api";
+import {
+  useAllAgentStatsQuery,
+  useAllTransactionStatsQuery,
+  useAllUserStatsQuery,
+} from "@/redux/features/stats/stats.api";
 import { Users, UserCheck, CreditCard, DollarSign } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -13,17 +18,7 @@ import {
   Legend,
 } from "recharts";
 
-// Demo stats
 
-
-// Chart data
-const transactionData = [
-  { type: "Send", totalCounts: 2100, totalAmount: 54000 },
-  { type: "Deposit", totalCounts: 1800, totalAmount: 72000 },
-  { type: "Withdraw", totalCounts: 1970, totalAmount: 65000 },
-  { type: "CashIn", totalCounts: 3070, totalAmount: 80000 },
-  { type: "CashOut", totalCounts: 4170, totalAmount: 95000 },
-];
 
 // Colors
 const colors = {
@@ -32,22 +27,42 @@ const colors = {
 };
 
 export default function AdminDashboardOverview() {
-    const { data: allTransactionStats } = useAllTransactionStatsQuery(undefined)
-    const transactionStatsData=allTransactionStats?.data
-const stats = [
-  { label: "Total Users", value: 2450, icon: Users },
-  { label: "Agents", value: 120, icon: UserCheck },
-  {
-    label: "Transactions",
-    value: transactionStatsData?.totalTransactions,
-    icon: CreditCard,
-  },
-  {
-    label: "Volume",
-    value: transactionStatsData?.totalTransactionAmount,
-    icon: DollarSign,
-  },
-];
+  const { data: allTransactionStats, isLoading } =
+    useAllTransactionStatsQuery(undefined,{refetchOnMountOrArgChange: true});
+  const { data: allUserStats } = useAllUserStatsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+  const { data: allAgentStats } = useAllAgentStatsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  if (isLoading) {
+    return <SkeletonCard></SkeletonCard>;
+  }
+  const transactionStatsData = allTransactionStats?.data;
+  const transactionData=allTransactionStats?.data?.allOperations
+  const stats = [
+    {
+      label: "Total Users",
+      value: allUserStats?.data?.totalUsers,
+      icon: Users,
+    },
+    {
+      label: "Agents",
+      value: allAgentStats?.data?.totalAgents,
+      icon: UserCheck,
+    },
+    {
+      label: "Transactions",
+      value: transactionStatsData?.totalTransactions,
+      icon: CreditCard,
+    },
+    {
+      label: "Volume",
+      value: transactionStatsData?.totalTransactionAmount,
+      icon: DollarSign,
+    },
+  ];
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {/* Stats Cards */}
@@ -58,7 +73,7 @@ const stats = [
             <item.icon className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{item.value}</div>
+            <div className="text-2xl font-bold">{(item.value.toFixed())} </div>
           </CardContent>
         </Card>
       ))}
@@ -98,7 +113,7 @@ const stats = [
                 </linearGradient>
               </defs>
 
-              <XAxis dataKey="type" />
+              <XAxis dataKey="_id" />
               <YAxis />
               <ReTooltip />
               <Legend />

@@ -6,24 +6,29 @@ import { Link } from "react-router";
 import { formatDate } from "@/utils/formatDate";
 import SkeletonCard from "@/components/SkeletonCard";
 import { useMyWalletQuery } from "@/redux/features/wallet/wallet.api";
-import {
-  useRecentTransactionQuery,
-} from "@/redux/features/transaction/transaction.api";
-import { useAllTransactionStatsQuery } from "@/redux/features/stats/stats.api";
+import { useRecentTransactionQuery } from "@/redux/features/transaction/transaction.api";
+import { useMyTransactionStatsQuery } from "@/redux/features/stats/stats.api";
 
 export default function AgentDashboardResponsive() {
   const { data: walletData, isLoading } = useMyWalletQuery(undefined);
   const { data: recentTransactions } = useRecentTransactionQuery(undefined);
-  const { data: allTransactionStats } = useAllTransactionStatsQuery(undefined)
+ 
+  const { data: myTransactionStats } = useMyTransactionStatsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   if (isLoading) {
     return <SkeletonCard></SkeletonCard>;
   }
-  
+  console.log(myTransactionStats);
+
   const myBalance = walletData?.data?.balance;
-  const cashInTotal =
-    allTransactionStats?.data?.cashIn?.totalAmount;
-  const cashOutTotal =
-    allTransactionStats?.data?.cashOut?.totalAmount;
+  const allOperations = myTransactionStats?.data?.myTransactions?.perTypes;
+  const cashInTotal = allOperations?.find(
+    (cashIn: any) => cashIn._id === "cash_in"
+  )?.totalAmount;
+  const cashOutTotal = allOperations?.find(
+    (cashOut: any) => cashOut._id === "cash_out"
+  )?.totalAmount;
   const recentActivity = recentTransactions?.data;
 
   return (
@@ -36,7 +41,7 @@ export default function AgentDashboardResponsive() {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-green-900">
-              {cashInTotal} tk
+              {cashInTotal?cashInTotal:0} tk
             </p>
           </CardContent>
         </Card>
@@ -46,7 +51,7 @@ export default function AgentDashboardResponsive() {
             <CardTitle className="text-red-800">Cash-Out Total</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-red-900">{cashOutTotal} tk</p>
+            <p className="text-3xl font-bold text-red-900">{cashOutTotal?cashOutTotal:0} tk</p>
           </CardContent>
         </Card>
       </div>
@@ -86,7 +91,7 @@ export default function AgentDashboardResponsive() {
               asChild
               className="flex-1 rounded-xl flex items-center justify-center gap-2 py-4"
             >
-              <Link to="/agent/cashin">
+              <Link to="/agent/cashout">
                 <ArrowUpCircle className="h-6 w-6" />
                 Cash Out
               </Link>

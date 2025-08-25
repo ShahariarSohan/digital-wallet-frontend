@@ -8,28 +8,14 @@ export const transactionApi = baseApi.injectEndpoints({
         url: "/transaction/recent",
         method: "GET",
       }),
-      providesTags: [
-        "CASHIN",
-        "CASHOUT",
-        "DEPOSIT",
-        "SENDMONEY",
-        "WITHDRAW",
-        "TRANSACTIONSTATS",
-      ],
+      providesTags: ["RECENTTRANSACTIONS"],
     }),
     allTransactions: builder.query({
       query: () => ({
         url: "/stats/transaction",
         method: "GET",
-        providesTags: [
-          "CASHIN",
-          "CASHOUT",
-          "DEPOSIT",
-          "SENDMONEY",
-          "WITHDRAW",
-          "TRANSACTIONSTATS",
-        ],
       }),
+      providesTags: ["TRANSACTIONSTATS"],
     }),
   }),
 });
