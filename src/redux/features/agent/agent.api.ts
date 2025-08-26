@@ -30,7 +30,7 @@ export const agentApi = baseApi.injectEndpoints({
           data: data,
         };
       },
-      invalidatesTags: ["USER"],
+      invalidatesTags: ["AGENT"],
     }),
   }),
 });

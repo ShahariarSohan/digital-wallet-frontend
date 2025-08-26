@@ -1,7 +1,10 @@
+
+import AllMyTransactionsTable from "@/components/modules/AllMyTransactionsTable";
+
 export default function AgentTransactions() {
   return (
     <div>
-      <h1>This is AgentTransactions component</h1>
+      <AllMyTransactionsTable></AllMyTransactionsTable>
     </div>
   );
 }

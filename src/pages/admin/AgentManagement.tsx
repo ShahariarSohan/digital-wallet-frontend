@@ -1,7 +1,9 @@
+import ManageAgents from "@/components/modules/admin/ManageAgents";
+
 export default function AgentManagement() {
   return (
     <div>
-      <h1>This is AgentManagement component</h1>
+     <ManageAgents></ManageAgents>
     </div>
   )
 }

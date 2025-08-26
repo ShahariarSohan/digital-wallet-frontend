@@ -4,22 +4,23 @@ import { useState } from "react";
 import SkeletonCard from "@/components/SkeletonCard";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useAllTransactionsQuery } from "@/redux/features/transaction/transaction.api";
+import { useAllMyTransactionsQuery } from "@/redux/features/transaction/transaction.api";
+
  // Your RTK Query
 
-export default function TransactionList() {
+export default function AllMyTransactionsTable() {
   const [page, setPage] = useState(1);
   const limit = 10;
 
-  const { data: transactionsData, isLoading } =useAllTransactionsQuery({
+  const { data: transactionsData, isLoading } =useAllMyTransactionsQuery({
     page,
     limit,
   });
 
   if (isLoading) return <SkeletonCard />;
-
-  const transactions = transactionsData?.data;
-  const meta = transactionsData?.meta;
+  console.log("my transactions", transactionsData)
+  const transactions = transactionsData?.data?.data;
+  const meta = transactionsData?.data?.meta;
 
   const handlePrev = () => {
     if (meta.page > 1) setPage(meta.page - 1);
@@ -66,7 +67,7 @@ export default function TransactionList() {
                   <td className="p-2 border capitalize">{t.type}</td>
                   <td className="p-2 border">{t.amount}</td>
                   <td className="p-2 border capitalize">{t.status}</td>
-                  <td className="p-2 border">{t.commission}</td>
+                  <td className="p-2 border">{t.commission?t.commission:"N/A"}</td>
                   <td className="p-2 border">{formatDate(t.createdAt)}</td>
                 </tr>
               ))}
