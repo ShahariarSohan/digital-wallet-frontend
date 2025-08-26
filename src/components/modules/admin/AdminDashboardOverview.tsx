@@ -73,7 +73,7 @@ export default function AdminDashboardOverview() {
             <item.icon className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{(item.value.toFixed())} </div>
+            <div className="text-2xl font-bold">{item.value?item.value.toFixed():0} </div>
           </CardContent>
         </Card>
       ))}

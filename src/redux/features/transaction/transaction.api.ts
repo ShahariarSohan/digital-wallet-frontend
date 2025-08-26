@@ -1,4 +1,5 @@
 
+
 import { baseApi } from "../../base.api";
 
 export const transactionApi = baseApi.injectEndpoints({
@@ -10,14 +11,20 @@ export const transactionApi = baseApi.injectEndpoints({
       }),
       providesTags: ["RECENTTRANSACTIONS"],
     }),
-    allTransactions: builder.query({
+    allTransactionStats: builder.query({
       query: () => ({
         url: "/stats/transaction",
         method: "GET",
       }),
       providesTags: ["TRANSACTIONSTATS"],
     }),
+    AllTransactions: builder.query({
+      query: () => ({
+        url: "/transaction",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const {useRecentTransactionQuery,useAllTransactionsQuery} = transactionApi;
+export const {useRecentTransactionQuery,useAllTransactionStatsQuery,useAllTransactionsQuery} = transactionApi;

@@ -1,4 +1,4 @@
-import UserProfile from "@/pages/admin/UserProfile";
+import UserProfile from "@/pages/user/UserProfile";
 import Deposit from "@/pages/user/Deposit";
 import SendMoney from "@/pages/user/SendMoney";
 import UserOverview from "@/pages/user/UserOverview";

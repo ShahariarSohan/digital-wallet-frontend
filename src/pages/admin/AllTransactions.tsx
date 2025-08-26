@@ -1,7 +1,9 @@
+import AllTransactionsTable from "@/components/modules/admin/AllTransactionTable";
+
 export default function AllTransactions() {
   return (
     <div>
-      <h1>This is AllTransactions component</h1>
+      <AllTransactionsTable></AllTransactionsTable>
     </div>
   );
 }

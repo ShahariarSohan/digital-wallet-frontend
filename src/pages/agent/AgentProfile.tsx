@@ -1,7 +1,9 @@
+import AgentProfileView from "@/components/modules/agent/AgentProfileView";
+
 export default function AgentProfile() {
   return (
-    <div>
-      <h1>This is AgentProfile component</h1>
+    <div className="my-10">
+      <AgentProfileView></AgentProfileView>
     </div>
   );
 }

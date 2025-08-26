@@ -18,7 +18,21 @@ export const agentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["WALLET", "RECENTTRANSACTIONS", "TRANSACTIONSTATS"],
     }),
+    updateAgentProfile: builder.mutation({
+      query: (userData) => {
+        const data = {
+          name: userData.name,
+          phone: userData.phone,
+        };
+        return {
+          url: `/agent/update/${userData.id}`,
+          method: "PATCH",
+          data: data,
+        };
+      },
+      invalidatesTags: ["USER"],
+    }),
   }),
 });
 
-export const {useCashInMutation,useCashOutMutation} = agentApi;
+export const {useCashInMutation,useCashOutMutation,useUpdateAgentProfileMutation} = agentApi;
