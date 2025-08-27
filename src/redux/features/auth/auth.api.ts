@@ -45,6 +45,7 @@ export const authApi = baseApi.injectEndpoints({
         url: "/admin/me",
         method: "GET",
       }),
+      providesTags:["ADMIN"]
     }),
     logout: builder.mutation({
       query: () => ({

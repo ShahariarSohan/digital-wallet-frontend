@@ -56,7 +56,7 @@ export const adminSettingsSchema = z.object({
       message: `Password must be at least 1 special character`,
     })
     .optional(),
-  alertMode: z.enum(["toast", "sweetalert"]),
-  theme: z.enum(["light", "dark", "system"]),
-  language: z.enum(["en", "bn", "es"]),
+  alertMode: z.enum(["toast", "sweetalert"]).optional(),
+  theme: z.enum(["light", "dark", "system"]).optional(),
+  language: z.enum(["en", "bn", "es"]).optional(),
 });

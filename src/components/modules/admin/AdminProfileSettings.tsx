@@ -1,6 +1,6 @@
 "use client";
 
-import {  useState } from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -33,14 +33,14 @@ import SkeletonCard from "@/components/SkeletonCard";
 import { adminSettingsSchema } from "@/schemas/updateSchema";
 
 import { useTranslation } from "react-i18next";
-import i18n from "@/i18n"; // <-- make sure this path matches your setup
+import i18n from "@/i18n";
 
 type FormValues = z.infer<typeof adminSettingsSchema>;
 
 export default function AdminProfileSettings() {
   const { t } = useTranslation();
 
-  const { data: admin,isLoading} = useAdminInfoQuery(undefined);
+  const { data: admin, isLoading } = useAdminInfoQuery(undefined);
   const [updateAdmin] = useUpdateAdminSettingsMutation();
   const [loading, setLoading] = useState(false);
 
@@ -59,19 +59,18 @@ export default function AdminProfileSettings() {
     },
   });
 
-  if (isLoading) {
+  if (isLoading || !admin?.data) {
     return <SkeletonCard />;
   }
-console.log(admin)
+
   const onSubmit = async (values: FormValues) => {
-    console.log(values);
     setLoading(true);
     try {
       const res = await updateAdmin({
         id: admin.data._id,
         data: values,
       }).unwrap();
-      console.log(res);
+
       // Change language immediately
       i18n.changeLanguage(values.language);
 
@@ -81,7 +80,6 @@ console.log(admin)
         Swal.fire(t("success"), "", "success");
       }
     } catch (err) {
-      console.log(err);
       if (values.alertMode === "toast") {
         toast.error(t("error"));
       } else {
@@ -119,7 +117,6 @@ console.log(admin)
               </div>
             )}
           />
-
           <Controller
             name="phone"
             control={control}

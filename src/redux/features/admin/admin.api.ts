@@ -41,7 +41,7 @@ export const adminApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: data,
       }),
-      invalidatesTags: ["USER"],
+      invalidatesTags: ["ADMIN"],
     }),
   }),
 });
