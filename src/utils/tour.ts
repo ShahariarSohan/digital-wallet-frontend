@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Shepherd from "shepherd.js";
+import type { Tour as ShepherdTour } from "shepherd.js";
 import "shepherd.js/dist/css/shepherd.css";
 import "../tour.css";
 
-let currentTour: any = null;
+let currentTour: ShepherdTour | null = null;
 
-export const createTour = () => {
+export const createTour = (): ShepherdTour | null => {
+  if (typeof window === "undefined") return null; // ✅ SSR safe
   if (window.innerWidth < 768) return null;
 
   // If a tour already exists, destroy it to avoid duplicate steps

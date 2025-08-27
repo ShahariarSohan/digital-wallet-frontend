@@ -8,8 +8,11 @@ export default function GuidedTour() {
 
     if (!hasSeenTour) {
       const tour = createTour();
-     tour!.start(); 
-      localStorage.setItem("hasSeenTour", "true");
+
+      if (tour) {
+        tour.start(); // ✅ safe, only runs if not null
+        localStorage.setItem("hasSeenTour", "true");
+      }
     }
   }, []);
 
