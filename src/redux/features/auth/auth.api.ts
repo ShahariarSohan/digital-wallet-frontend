@@ -38,7 +38,7 @@ export const authApi = baseApi.injectEndpoints({
         url: "/agent/me",
         method: "GET",
       }),
-      providesTags: ["USER"],
+      providesTags: ["AGENT"],
     }),
     adminInfo: builder.query({
       query: () => ({

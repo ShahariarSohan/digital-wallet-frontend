@@ -93,6 +93,7 @@ export const PricingBlock = () => {
                   </li>
                 </ul>
                 <Button
+                  id="basic-plan"
                   onClick={() => handlePurchase()}
                   className="w-full mt-6"
                 >
@@ -135,7 +136,7 @@ export const PricingBlock = () => {
                     <span>Priority customer support</span>
                   </li>
                 </ul>
-                <Button onClick={() => handlePurchase()} className="w-full">
+                <Button id="pro-plan"onClick={() => handlePurchase()} className="w-full">
                   Upgrade to Pro
                 </Button>
               </div>
@@ -177,7 +178,7 @@ export const PricingBlock = () => {
                     <span>Unlimited business transactions</span>
                   </li>
                 </ul>
-                <Button onClick={() => handlePurchase()} className="w-full">
+                <Button id="business-plan" onClick={() => handlePurchase()} className="w-full">
                   Go Business
                 </Button>
               </div>

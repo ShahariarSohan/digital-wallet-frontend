@@ -18,32 +18,42 @@ import { Link } from "react-router";
 import { useAppDispatch } from "@/redux/hook";
 import { role } from "@/constants/role";
 import { toast } from "sonner";
-import { authApi, useAdminInfoQuery, useAgentInfoQuery, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import {
+  authApi,
+  useAdminInfoQuery,
+  useAgentInfoQuery,
+  useLogoutMutation,
+  useUserInfoQuery,
+} from "@/redux/features/auth/auth.api";
+import SettingsPage from "../modules/guidedTour/SettingsPage";
 
 // Navigation links array to be used in both desktop and mobile menus
-const navigationLinks = [
-  { href: "/", label: "Home" ,role:"public" },
-  { href: "/features", label: "Features" ,role:"public" },
-  { href: "/about", label: "About", role:"public" },
-  { href: "/contact", label: "Contact", role:"public" },
-  { href: "/faq", label: "FAQ", role:"public" },
-  { href: "/admin", label: "Dashboard", role:role.admin },
-  { href: "/agent", label: "Dashboard", role:role.agent },
-  { href: "/user", label: "Dashboard", role:role.user },
+ const navigationLinks = [
+  { href: "/", label: "Home", role: "public" },
+  { href: "/features", label: "Features", role: "public" },
+  { href: "/about", label: "About", role: "public" },
+  { href: "/contact", label: "Contact", role: "public" },
+  { href: "/faq", label: "FAQ", role: "public" },
+  { href: "/admin", label: "Dashboard", role: role.admin },
+  { href: "/agent", label: "Dashboard", role: role.agent },
+  { href: "/user", label: "Dashboard", role: role.user },
 ];
+
 
 export default function Navbar() {
   const { data: agentData } = useAgentInfoQuery(undefined);
   const { data: userData } = useUserInfoQuery(undefined);
   const { data: adminData } = useAdminInfoQuery(undefined);
-  const loggedInEmail=agentData?.data?.email || userData?.data?.email || adminData?.data?.email;
-  const loggedInRole =agentData?.data?.role || userData?.data?.role || adminData?.data?.role;
+  const loggedInEmail =
+    agentData?.data?.email || userData?.data?.email || adminData?.data?.email;
+  const loggedInRole =
+    agentData?.data?.role || userData?.data?.role || adminData?.data?.role;
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     await logout(undefined).unwrap();
     dispatch(authApi.util.resetApiState());
-    toast.success("Logged Out")
+    toast.success("Logged Out");
   };
 
   return (
@@ -128,7 +138,7 @@ export default function Navbar() {
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
                 {navigationLinks.map((link, index) => (
-                  <div key={index}>
+                  <div id="nav-menu" key={index}>
                     {link.role === "public" && (
                       <NavigationMenuItem key={index} className="w-full">
                         <NavigationMenuLink
@@ -158,11 +168,7 @@ export default function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           {loggedInEmail ? (
-            <Button
-              onClick={handleLogout}
-              size="sm"
-              className="text-sm "
-            >
+            <Button onClick={handleLogout} size="sm" className="text-sm ">
               Logout
             </Button>
           ) : (
@@ -170,7 +176,12 @@ export default function Navbar() {
               <Link to="/login">Login</Link>
             </Button>
           )}
-          <ModeToggle></ModeToggle>
+          <div id="theme-toggle">
+            <ModeToggle></ModeToggle>
+          </div>
+          <div className="hidden md:block">
+            <SettingsPage></SettingsPage>
+          </div>
         </div>
       </div>
     </header>
