@@ -1,7 +1,9 @@
+import AdminProfileSettings from "@/components/modules/admin/AdminProfileSettings";
+
 export default function AdminProfile() {
   return (
     <div>
-      <h1>This is AdminProfile component</h1>
+      <AdminProfileSettings></AdminProfileSettings>
     </div>
   );
 }

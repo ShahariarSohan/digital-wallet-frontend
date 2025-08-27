@@ -6,7 +6,7 @@ export const adminApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: "/agent",
         method: "GET",
-        params
+        params,
       }),
       providesTags: ["AGENT"],
     }),
@@ -14,7 +14,7 @@ export const adminApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: "/user",
         method: "GET",
-        params
+        params,
       }),
       providesTags: ["USER"],
     }),
@@ -34,7 +34,16 @@ export const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+  
+    updateAdminSettings: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/admin/settings/${id}`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: ["USER"],
+    }),
   }),
 });
 
-export const { useGetAllAgentsQuery, useGetAllUsersQuery,useUpdateAgentByAdminMutation,useUpdateUserByAdminMutation } = adminApi;
+export const { useGetAllAgentsQuery, useGetAllUsersQuery,useUpdateAgentByAdminMutation,useUpdateUserByAdminMutation,useUpdateAdminSettingsMutation } = adminApi;

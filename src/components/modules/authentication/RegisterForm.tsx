@@ -5,12 +5,27 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import Password from "@/components/Password";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { toast } from "sonner";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import SkeletonCard from "@/components/SkeletonCard";
 interface Login2Props {
   heading?: string;
   logo?: {
@@ -24,8 +39,8 @@ interface Login2Props {
   signupText?: string;
   signupUrl?: string;
 }
-interface IRole{
-  role: "user"|"agent"
+interface IRole {
+  role: "user" | "agent";
 }
 const registerSchema = z
   .object({
@@ -47,10 +62,11 @@ const registerSchema = z
     confirmPassword: z
       .string()
       .min(8, { error: "Confirm Password must be at least 8 characters" }),
-    role: z.string().refine(
-    (val) => val === "user" || val === "agent",
-    { message: "Role must be either 'user' or 'agent'" }
-  ),
+    role: z
+      .string()
+      .refine((val) => val === "user" || val === "agent", {
+        message: "Role must be either 'user' or 'agent'",
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     error: "Password don't match",
@@ -61,11 +77,9 @@ export const RegisterForm = ({
   buttonText = "Register",
   signupText = "Already have an account?",
 }: Login2Props) => {
-  
-  
-  const roles: IRole[] = [{ role: "user" }, { role: "agent" }]
-  const navigate=useNavigate()
-  const [register]=useRegisterMutation()
+  const roles: IRole[] = [{ role: "user" }, { role: "agent" }];
+  const navigate = useNavigate();
+  const [register] = useRegisterMutation();
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -73,28 +87,29 @@ export const RegisterForm = ({
       email: "",
       password: "",
       confirmPassword: "",
-      role: "user"  ,
+      role: "user",
     },
   });
-  const onSubmit = async(data: z.infer<typeof registerSchema>) => {
+  
+
+  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     console.log(data);
     const userInfo = {
       name: data.name,
       email: data.email,
       password: data.password,
-      role:data.role,
+      role: data.role,
     };
-    console.log(userInfo)
-     try {
-       const res= await register(userInfo).unwrap();
-       console.log(res);
-       toast.success("Successfully registered");
-       navigate("/login")
-       
-     } catch (error) {
-       console.error(error);
-       toast.error("Registration failed")
-     }
+    console.log(userInfo);
+    try {
+      const res = await register(userInfo).unwrap();
+      console.log(res);
+      toast.success("Successfully registered");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      toast.error("Registration failed");
+    }
   };
   return (
     <section className="bg-muted min-h-screen py-10">
@@ -197,7 +212,7 @@ export const RegisterForm = ({
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {roles.map((value:IRole,index:number) => (
+                            {roles.map((value: IRole, index: number) => (
                               <SelectItem key={index} value={value.role}>
                                 {value.role}
                               </SelectItem>

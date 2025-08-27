@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
 import Password from "@/components/Password";
+import SkeletonCard from "@/components/SkeletonCard";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -39,7 +40,9 @@ export const LoginForm = ({
       password: "",
       confirmPassword: "",
     },
-  });
+   });
+
+  
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userInfo = {
       email: data.email,

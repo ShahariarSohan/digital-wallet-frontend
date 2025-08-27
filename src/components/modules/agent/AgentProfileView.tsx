@@ -32,6 +32,7 @@ import PasswordDialog from "@/components/PasswordDialog";
 
 import { useAgentInfoQuery } from "@/redux/features/auth/auth.api";
 import { useUpdateAgentProfileMutation } from "@/redux/features/agent/agent.api";
+import SkeletonCard from "@/components/SkeletonCard";
 
 // ---- Custom Zod Schema ----
 
@@ -41,7 +42,7 @@ type ProfileFormType = z.infer<typeof profileSchema>;
 export default function AgentProfileView() {
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [passwordOpen, setPasswordOpen] = useState(false);
-  const { data: agentInfo } = useAgentInfoQuery(undefined,{refetchOnMountOrArgChange:true});
+  const { data: agentInfo,isLoading } = useAgentInfoQuery(undefined,{refetchOnMountOrArgChange:true});
   const [updateProfile] = useUpdateAgentProfileMutation();
   console.log(agentInfo);
   const user = agentInfo?.data;
@@ -52,7 +53,9 @@ export default function AgentProfileView() {
     resolver: zodResolver(profileSchema),
     defaultValues: { name: "", phone: "" },
   });
-
+if (isLoading) {
+    return <SkeletonCard />;
+  }
   const onProfileSubmit = async (values: ProfileFormType) => {
     setLoadingProfile(true)
     

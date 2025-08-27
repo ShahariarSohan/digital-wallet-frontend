@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -66,7 +67,7 @@ export default function TransactionList() {
                   <td className="p-2 border capitalize">{t.type}</td>
                   <td className="p-2 border">{t.amount}</td>
                   <td className="p-2 border capitalize">{t.status}</td>
-                  <td className="p-2 border">{t.commission}</td>
+                  <td className="p-2 border">{t.commission?t.commission:"N/A"}</td>
                   <td className="p-2 border">{formatDate(t.createdAt)}</td>
                 </tr>
               ))}

@@ -30,6 +30,7 @@ import { profileSchema } from "@/schemas/updateSchema";
 import PasswordDialog from "@/components/PasswordDialog";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { useUpdateUserProfileMutation } from "@/redux/features/user/user.api";
+import SkeletonCard from "@/components/SkeletonCard";
 
 // ---- Custom Zod Schema ----
 
@@ -39,7 +40,7 @@ type ProfileFormType = z.infer<typeof profileSchema>;
 export default function UserProfileView() {
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [passwordOpen, setPasswordOpen] = useState(false);
-  const { data: userInfo } = useUserInfoQuery(undefined,{refetchOnMountOrArgChange:true});
+  const { data: userInfo,isLoading } = useUserInfoQuery(undefined,{refetchOnMountOrArgChange:true});
   const [updateProfile] = useUpdateUserProfileMutation();
   console.log(userInfo);
   const user = userInfo?.data;
@@ -50,7 +51,9 @@ export default function UserProfileView() {
     resolver: zodResolver(profileSchema),
     defaultValues: { name: "", phone: "" },
   });
-
+if (isLoading) {
+    return <SkeletonCard />;
+  }
   const onProfileSubmit = async (values: ProfileFormType) => {
     setLoadingProfile(true)
     

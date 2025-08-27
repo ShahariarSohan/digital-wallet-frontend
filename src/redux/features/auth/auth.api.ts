@@ -45,8 +45,8 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/admin/me",
         method: "GET",
-        providesTags: ["USER"],
       }),
+      providesTags: ["USER"],
     }),
     logout: builder.mutation({
       query: () => ({
@@ -58,7 +58,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (passwordData) => ({
         url: "/auth/change-password",
         method: "POST",
-        data:passwordData
+        data: passwordData,
       }),
     }),
   }),
