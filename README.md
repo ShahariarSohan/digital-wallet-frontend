@@ -1,69 +1,19 @@
-# React + TypeScript + Vite
+# ePay – Digital Wallet System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**ePay** is a secure, role-based, and user-friendly digital wallet application, inspired by services like bKash and Nagad. It enables **Users**, **Agents**, and **Admins** to perform financial operations and manage wallets seamlessly through an intuitive interface. The app includes public landing pages, role-based dashboards, secure authentication, interactive charts, toast notifications, guided tours, responsive design, lazy-loading, skeleton loaders, and form validations for a professional and smooth user experience.
 
-## Expanding the ESLint configuration
+**Key Features:** Public landing pages (Home, About, Features, Contact, FAQ), User dashboard (wallet overview, deposits, withdrawals, send money, transaction history), Agent dashboard (cash-in/out, user wallet management, commission tracking), Admin dashboard (manage users/agents, system overview, transaction monitoring), JWT-based authentication with role-based access, interactive charts and tables, toast notifications, guided tours (react-joyride), responsive design for mobile, tablet, and desktop, lazy-loading and skeleton loaders, and robust form validations (required fields, numeric checks, positive amounts).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Technology Stack:** Frontend: React.js & TypeScript, Redux Toolkit & RTK Query, React Router, Tailwind CSS for responsive styling, toast notifications & guided tours, Recharts for charts. Backend: Node.js & Express.js, MongoDB & Mongoose, JWT authentication, bcrypt for password hashing. Tools & Libraries: axios for API requests, react-joyride for guided tours, Recharts for data visualization.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Setup Instructions:** Clone the repository using `git clone https://github.com/yourusername/epay.git` and navigate to the folder `cd epay`. Install dependencies with `npm install`. Create a `.env` file in the root and add `REACT_APP_API_URL=http://localhost:5000/api`. Start the development server with `npm start`. Make sure the Node.js/Express backend is running and MongoDB is properly configured. Use the provided or mocked API endpoints for testing.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+**Usage:** Open `http://localhost:3000` in your browser. Explore public landing pages (Home, About, Features, Contact, FAQ). Register as a User or Agent. Login and access your role-based dashboard. Users can deposit, withdraw, send money, and view transactions. Agents can manage users’ wallets, perform cash-in/out, and track commissions. Admins can manage all accounts, monitor transactions, and adjust system settings. Guided tour highlights key dashboard features for new users and can be restarted via settings.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Live URL:** *(If deployed, replace this placeholder)* `https://digital-wallet-frontend-ten.vercel.app`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Additional Notes:** Role-based navigation and secure access control, guided tour stored in localStorage to run once for new users, fully responsive and accessible design, smooth UI transitions, pagination and advanced filtering for transaction tables, skeleton loaders for better performance, polished UX, and consistent theme colors, typography, and spacing.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
