@@ -25,7 +25,6 @@ import {
 
 import { toast } from "sonner";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
-import SkeletonCard from "@/components/SkeletonCard";
 interface Login2Props {
   heading?: string;
   logo?: {

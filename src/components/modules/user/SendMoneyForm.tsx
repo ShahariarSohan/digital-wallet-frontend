@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +20,7 @@ import { failAlert, successAlert } from "@/alerts/sweetAlert";
 export default function SendMoneyForm() {
   const [sendMoney] = useSendMoneyMutation()
   const form = useForm<EmailAmountSchemaType>({
-    resolver: zodResolver(emailAmountSchema),
+    resolver: zodResolver(emailAmountSchema)as any,
     defaultValues: { email: "", amount: 100 },
     mode: "onBlur",
   });

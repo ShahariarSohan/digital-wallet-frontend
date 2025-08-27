@@ -27,7 +27,7 @@ export default function ManageAgents() {
 
   const handleChange = async (id: string, newStatus: string) => {
     try {
-      const res = await updateAgentStatus({
+       await updateAgentStatus({
         id,
         approvalStatus: newStatus,
       }).unwrap();

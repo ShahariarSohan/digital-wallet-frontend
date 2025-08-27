@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,12 +24,12 @@ import { useCashInMutation } from "@/redux/features/agent/agent.api";
 export default function CashInForm() {
   const[cashIn]=useCashInMutation()
     const form = useForm<EmailAmountSchemaType>({
-    resolver: zodResolver(emailAmountSchema),
-    defaultValues: { email: "", amount: 100 },
-    mode: "onBlur",
-  });
+      resolver: zodResolver(emailAmountSchema) as any,
+      defaultValues: { email: "", amount: 100 as number },
+      mode: "onBlur",
+    });
 
-  const onSubmit = async(data: EmailAmountSchemaType) => {
+  const onSubmit:any = async(data: EmailAmountSchemaType) => {
     console.log("Cash In:", data); // { email, amount:number }
     try {
           const res = await cashIn(data).unwrap()

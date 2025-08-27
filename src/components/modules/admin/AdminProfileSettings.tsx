@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -66,7 +67,7 @@ export default function AdminProfileSettings() {
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
     try {
-      const res = await updateAdmin({
+       await updateAdmin({
         id: admin.data._id,
         data: values,
       }).unwrap();
@@ -79,7 +80,8 @@ export default function AdminProfileSettings() {
       } else {
         Swal.fire(t("success"), "", "success");
       }
-    } catch (err) {
+    } catch (err: any) {
+      console.log(err)
       if (values.alertMode === "toast") {
         toast.error(t("error"));
       } else {

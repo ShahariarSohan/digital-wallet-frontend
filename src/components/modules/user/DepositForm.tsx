@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +22,7 @@ export default function DepositForm() {
   const [deposit] = useDepositMutation();
 
   const form = useForm<AmountSchemaType>({
-    resolver: zodResolver(amountSchema),
+    resolver: zodResolver(amountSchema) as any,
     defaultValues: { amount: 100 },
     mode: "onBlur",
   });
