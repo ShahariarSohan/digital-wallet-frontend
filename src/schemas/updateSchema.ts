@@ -38,7 +38,6 @@ export const passwordSchema = z
 
 export const adminSettingsSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters"),
-  email: z.email(),
   phone: z
     .string({ error: "Phone required and it must be string and unique" })
     .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {

@@ -8,6 +8,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noEmit": false,
+    "skipLibCheck": true, // ignore type errors in node_modules
+    "strict": false
   }
 }

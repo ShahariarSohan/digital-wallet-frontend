@@ -1,6 +1,5 @@
 import { baseApi } from "@/redux/base.api";
 
-
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
@@ -31,22 +30,21 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/user/me",
         method: "GET",
-        providesTags: ["USER"],
       }),
+      providesTags: ["USER"],
     }),
     agentInfo: builder.query({
       query: () => ({
         url: "/agent/me",
         method: "GET",
-        providesTags: ["USER"],
       }),
+      providesTags: ["USER"],
     }),
     adminInfo: builder.query({
       query: () => ({
         url: "/admin/me",
         method: "GET",
       }),
-      providesTags: ["USER"],
     }),
     logout: builder.mutation({
       query: () => ({
@@ -64,4 +62,12 @@ export const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useRegisterMutation,useLoginMutation,useAgentInfoQuery,useUserInfoQuery,useLogoutMutation,useAdminInfoQuery,useChangePasswordMutation } = authApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useAgentInfoQuery,
+  useUserInfoQuery,
+  useLogoutMutation,
+  useAdminInfoQuery,
+  useChangePasswordMutation,
+} = authApi;

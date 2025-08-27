@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import {  useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -40,7 +40,7 @@ type FormValues = z.infer<typeof adminSettingsSchema>;
 export default function AdminProfileSettings() {
   const { t } = useTranslation();
 
-  const { data: admin, isLoading } = useAdminInfoQuery(undefined);
+  const { data: admin,isLoading} = useAdminInfoQuery(undefined);
   const [updateAdmin] = useUpdateAdminSettingsMutation();
   const [loading, setLoading] = useState(false);
 
@@ -52,27 +52,26 @@ export default function AdminProfileSettings() {
     resolver: zodResolver(adminSettingsSchema),
     defaultValues: {
       name: "",
-      email: "",
       phone: "",
       password: "",
       alertMode: "toast",
-      theme: "light",
       language: "en",
     },
   });
 
-  if (isLoading || !admin?.data) {
+  if (isLoading) {
     return <SkeletonCard />;
   }
-
+console.log(admin)
   const onSubmit = async (values: FormValues) => {
+    console.log(values);
     setLoading(true);
     try {
       const res = await updateAdmin({
         id: admin.data._id,
         data: values,
       }).unwrap();
-
+      console.log(res);
       // Change language immediately
       i18n.changeLanguage(values.language);
 
@@ -82,6 +81,7 @@ export default function AdminProfileSettings() {
         Swal.fire(t("success"), "", "success");
       }
     } catch (err) {
+      console.log(err);
       if (values.alertMode === "toast") {
         toast.error(t("error"));
       } else {
@@ -119,21 +119,7 @@ export default function AdminProfileSettings() {
               </div>
             )}
           />
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <div>
-                <Label htmlFor="email">{t("email")}</Label>
-                <Input {...field} id="email" type="email" className="mt-2" />
-                {errors.email && (
-                  <p className="text-red-600 text-sm mt-1">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-            )}
-          />
+
           <Controller
             name="phone"
             control={control}
@@ -162,6 +148,11 @@ export default function AdminProfileSettings() {
                   placeholder={t("newPassword")}
                   className="mt-2"
                 />
+                {errors.password && (
+                  <p className="text-red-600 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
             )}
           />
@@ -198,25 +189,6 @@ export default function AdminProfileSettings() {
           <CardTitle>{t("preferences")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Controller
-            name="theme"
-            control={control}
-            render={({ field }) => (
-              <div>
-                <Label>{t("theme")}</Label>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full mt-2">
-                    <SelectValue placeholder={t("theme")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="light">{t("Light")}</SelectItem>
-                    <SelectItem value="dark">{t("Dark")}</SelectItem>
-                    <SelectItem value="system">{t("System")}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-          />
           <Controller
             name="language"
             control={control}
