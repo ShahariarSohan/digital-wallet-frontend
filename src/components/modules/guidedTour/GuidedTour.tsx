@@ -10,7 +10,7 @@ export default function GuidedTour() {
       const tour = createTour();
 
       if (tour) {
-        tour.start();
+        tour!.start();
         localStorage.setItem("hasSeenTour", "true");
       }
     }
