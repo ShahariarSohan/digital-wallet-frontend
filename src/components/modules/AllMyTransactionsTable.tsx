@@ -19,7 +19,7 @@ export default function AllMyTransactionsTable() {
   });
 
   if (isLoading) return <SkeletonCard />;
-  console.log("my transactions", transactionsData)
+  
   const transactions = transactionsData?.data?.data;
   const meta = transactionsData?.data?.meta;
 

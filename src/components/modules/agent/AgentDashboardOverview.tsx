@@ -19,7 +19,7 @@ export default function AgentDashboardResponsive() {
   if (isLoading) {
     return <SkeletonCard></SkeletonCard>;
   }
-  console.log(myTransactionStats);
+  
 
   const myBalance = walletData?.data?.balance;
   const allOperations = myTransactionStats?.data?.myTransactions?.perTypes;

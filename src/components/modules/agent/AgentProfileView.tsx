@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -44,8 +45,8 @@ export default function AgentProfileView() {
   const [passwordOpen, setPasswordOpen] = useState(false);
   const { data: agentInfo,isLoading } = useAgentInfoQuery(undefined,{refetchOnMountOrArgChange:true});
   const [updateProfile] = useUpdateAgentProfileMutation();
-  console.log(agentInfo);
-  const user = agentInfo?.data;
+
+  
   
 
   // ---- Profile Form ----
@@ -56,6 +57,7 @@ export default function AgentProfileView() {
 if (isLoading) {
     return <SkeletonCard />;
   }
+  const user = agentInfo?.data;
   const onProfileSubmit = async (values: ProfileFormType) => {
     setLoadingProfile(true)
     

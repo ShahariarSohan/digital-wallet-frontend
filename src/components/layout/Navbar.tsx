@@ -26,9 +26,10 @@ import {
   useUserInfoQuery,
 } from "@/redux/features/auth/auth.api";
 import SettingsPage from "../modules/guidedTour/SettingsPage";
+import SkeletonCard from "../SkeletonCard";
 
 // Navigation links array to be used in both desktop and mobile menus
- const navigationLinks = [
+const navigationLinks = [
   { href: "/", label: "Home", role: "public" },
   { href: "/features", label: "Features", role: "public" },
   { href: "/about", label: "About", role: "public" },
@@ -39,15 +40,11 @@ import SettingsPage from "../modules/guidedTour/SettingsPage";
   { href: "/user", label: "Dashboard", role: role.user },
 ];
 
-
 export default function Navbar() {
-  const { data: agentData } = useAgentInfoQuery(undefined);
+  const { data: agentData, isLoading } = useAgentInfoQuery(undefined);
   const { data: userData } = useUserInfoQuery(undefined);
   const { data: adminData } = useAdminInfoQuery(undefined);
-  const loggedInEmail =
-    agentData?.data?.email || userData?.data?.email || adminData?.data?.email;
-  const loggedInRole =
-    agentData?.data?.role || userData?.data?.role || adminData?.data?.role;
+
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const handleLogout = async () => {
@@ -55,7 +52,15 @@ export default function Navbar() {
     dispatch(authApi.util.resetApiState());
     toast.success("Logged Out");
   };
-
+  if (isLoading) {
+    return <SkeletonCard></SkeletonCard>;
+  }
+  const loggedInEmail =
+    agentData?.data?.email || userData?.data?.email || adminData?.data?.email;
+  console.log(loggedInEmail);
+  const loggedInRole =
+    agentData?.data?.role || userData?.data?.role || adminData?.data?.role;
+  console.log(loggedInRole);
   return (
     <header className=" px-4 container mx-auto">
       <div className="flex h-16 items-center justify-between gap-4">
