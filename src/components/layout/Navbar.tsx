@@ -41,9 +41,9 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
-  const { data: agentData, isLoading } = useAgentInfoQuery(undefined);
+  const { data: agentData,isLoading } = useAgentInfoQuery(undefined);
   const { data: userData } = useUserInfoQuery(undefined);
-  const { data: adminData } = useAdminInfoQuery(undefined);
+  const { data: adminData} = useAdminInfoQuery(undefined);
 
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
@@ -146,7 +146,7 @@ export default function Navbar() {
                   <div id="nav-menu" key={index}>
                     {link.role === "public" && (
                       <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink
+                        <NavigationMenuLink 
                           asChild
                           className="text-muted-foreground hover:text-primary py-1.5 font-medium"
                         >
@@ -182,7 +182,7 @@ export default function Navbar() {
             </Button>
           )}
           <div id="theme-toggle">
-            <ModeToggle></ModeToggle>
+            <ModeToggle></ModeToggle>-
           </div>
           <div className="hidden md:block">
             <SettingsPage></SettingsPage>

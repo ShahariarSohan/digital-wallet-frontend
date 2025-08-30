@@ -77,14 +77,12 @@ export default function UserDashboardOverview() {
                 </div>
                 <p
                   className={`font-semibold ${
-                    tx.type === "deposit"
+                    tx.type === "deposit" || tx.type === "cash_in"
                       ? "text-green-600"
-                      : tx.type === "withdraw"
-                      ? "text-red-600"
-                      : "text-blue-600"
+                      : "text-red-600"
                   }`}
                 >
-                  {tx.type === "withdraw" ? "-" : "+"}
+                  {tx.type === "deposit" || tx.type === "cash_in" ? "+" : "-"}
                   {tx.amount} tk
                 </p>
               </div>
