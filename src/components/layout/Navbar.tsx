@@ -182,7 +182,7 @@ export default function Navbar() {
             </Button>
           )}
           <div id="theme-toggle">
-            <ModeToggle></ModeToggle>-
+            <ModeToggle></ModeToggle>
           </div>
           <div className="hidden md:block">
             <SettingsPage></SettingsPage>
