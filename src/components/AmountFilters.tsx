@@ -55,13 +55,11 @@ export const AmountFilter = () => {
           onChange={(e) => handleMaxAmount(e.target.value)}
         />
       </div>
-      <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-5">
-       
-
+      <div className="flex gap-2  mt-2 sm:mt-5">
         <Button
           variant="outline"
           onClick={handleReset}
-          className="flex-1 sm:flex-none"
+          className=""
         >
           Reset
         </Button>

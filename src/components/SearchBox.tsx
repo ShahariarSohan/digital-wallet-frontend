@@ -37,35 +37,34 @@ export default function SearchBox() {
     setSearchParams(params);
   };
   return (
-    <div className="flex flex-col lg:flex-row items-center gap-2 justify-between">
-      <div className="">
-        <div className="relative">
-          <Input
-            className="peer ps-9 pe-9"
-            placeholder="Search amount"
-            type="search"
-            value={amount ? amount : ""}
-            onChange={(e) => handleAmount(e.target.value)}
-          />
-          <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-            {isLoading ? (
-              <LoaderCircleIcon
-                className="animate-spin"
-                size={16}
-                role="status"
-                aria-label="Loading..."
-              />
-            ) : (
-              <SearchIcon size={16} aria-hidden="true" />
-            )}
-          </div>
+    <div className="flex flex-col sm:flex-row sm:gap-2 gap-4 items-center mt-4">
+      <div className="relative flex-1 w-full">
+        <Input
+          className="peer ps-9 pe-9 h-10 w-full"
+          placeholder="Search amount"
+          type="search"
+          value={amount || ""}
+          onChange={(e) => handleAmount(e.target.value)}
+        />
+        <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+          {isLoading ? (
+            <LoaderCircleIcon
+              className="animate-spin"
+              size={16}
+              role="status"
+              aria-label="Loading..."
+            />
+          ) : (
+            <SearchIcon size={16} aria-hidden="true" />
+          )}
         </div>
       </div>
-      <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-5">
+
+      <div className="flex gap-2 w-full md:w-auto">
         <Button
           variant="outline"
           onClick={handleReset}
-          className="flex-1 sm:flex-none"
+          className="h-10 flex-1 md:flex-none"
         >
           Reset
         </Button>

@@ -46,7 +46,7 @@ export default function TransactionFilters() {
     setSearchParams(params);
   };
   return (
-    <div className=" flex flex-col lg:flex-row items-center gap-5 justify-between my-5">
+    <div className=" flex flex-col md:flex-row items-center gap-5 justify-between my-5">
       {user?.data.email || agent?.data.email ? (
         <div>
           <SearchBox></SearchBox>
@@ -77,8 +77,8 @@ export default function TransactionFilters() {
           </Select>
         </div>
 
-        <div className="flex items-end mt-6 md:mt-6">
-          <Button onClick={handleClear} variant="outline">
+        <div className="flex  md:mt-6 ">
+          <Button onClick={handleClear} variant="outline" className="">
             Clear
           </Button>
         </div>
