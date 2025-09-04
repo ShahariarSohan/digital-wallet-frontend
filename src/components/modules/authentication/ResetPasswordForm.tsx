@@ -1,16 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "@/assets/icons/Logo";
-import Password from "@/components/Password";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useLoginMutation } from "@/redux/features/auth/auth.api";
 
+import { Link, useNavigate, useSearchParams } from "react-router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import Password from "@/components/Password";
 
-import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
-
+import { useResetPasswordMutation } from "@/redux/features/auth/auth.api";
 
 interface Login2Props {
   heading?: string;
@@ -21,52 +28,59 @@ interface Login2Props {
     title?: string;
   };
   buttonText?: string;
-  googleText?: string;
-  signupText?: string;
-  forgetPasswordText?: string;
 }
-
-export const LoginForm = ({
-  heading = "Login",
-  buttonText = "Login",
-  signupText = "Need an account?",
-  forgetPasswordText = "Forget your password?",
+const resetPasswordSchema = z
+  .object({
+    newPassword: z
+      .string()
+      .min(8, { error: "Password must be at least 8 characters" })
+      .regex(/.*[A-Z].*/, {
+        message: `Password must be at least 1 uppercase letter`,
+      })
+      .regex(/.*\d.*/, { message: `Password must be at least 1 number` })
+      .regex(/[!@#$%^&*?]/, {
+        message: `Password must be at least 1 special character`,
+      }),
+    confirmPassword: z
+      .string()
+      .min(8, { error: "Confirm Password must be at least 8 characters" }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    error: "Password don't match",
+    path: ["confirmPassword"],
+  });
+export const ResetPasswordForm = ({
+  heading = "Reset Password",
+  buttonText = "Reset Password",
 }: Login2Props) => {
-  const navigate=useNavigate()
-  const[login]=useLoginMutation()
-   const form = useForm({
+  const navigate = useNavigate();
+  const [urlParams] = useSearchParams();
+  const [resetPassword] = useResetPasswordMutation();
+  const form = useForm<z.infer<typeof resetPasswordSchema>>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      newPassword: "",
       confirmPassword: "",
     },
-   });
+  });
 
-  
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const userInfo = {
-      email: data.email,
-      password: data.password,
+  const onSubmit = async (data: z.infer<typeof resetPasswordSchema>) => {
+    const resetPasswordInfo = {
+      id: urlParams.get("id"),
+      newPassword: data.newPassword,
     };
-    console.log(userInfo)
+    console.log(resetPasswordInfo);
     try {
-      const result = await login(userInfo).unwrap();
-      console.log(result);
-      toast.success(" Logged In Successfully");
-      form.reset()
-      navigate("/")
-      
-    } catch (err: any) {
-      console.error(err);
-      if (
-        err.data.message === "Wrong Password" ||
-        err.data.message === "Account doesn't exist"
-      ) {
-        toast.error("Wrong credentials");
-      }
+      const res = await resetPassword(resetPasswordInfo).unwrap();
+      console.log(res);
+      toast.success("Reset password successfully");
+      form.reset();
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
     }
   };
-
   return (
     <section className="bg-muted min-h-screen py-10">
       <div className="flex h-full items-center justify-center">
@@ -77,25 +91,21 @@ export const LoginForm = ({
           </div>
           <div className="min-w-sm border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
             {heading && <h1 className="text-xl font-semibold">{heading}</h1>}
-            <div className="w-full">
+            <div className="flex w-full flex-col gap-2">
               <Form {...form}>
                 <form
-                  id="login_form"
+                  id="reset_password_form"
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-5"
                 >
                   <FormField
                     control={form.control}
-                    name="email"
+                    name="newPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>New Password</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="JonDoe@company.com"
-                            type="email"
-                            {...field}
-                          />
+                          <Password {...field}></Password>
                         </FormControl>
                         <FormDescription className="sr-only">
                           This is your public display name.
@@ -106,10 +116,10 @@ export const LoginForm = ({
                   />
                   <FormField
                     control={form.control}
-                    name="password"
+                    name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel>Confirm Password</FormLabel>
                         <FormControl>
                           <Password {...field}></Password>
                         </FormControl>
@@ -123,31 +133,18 @@ export const LoginForm = ({
                 </form>
               </Form>
             </div>
-
             <Button
-              form="login_form"
+              form="reset_password_form"
               type="submit"
               className="w-full bg-primary mt-2"
             >
               {buttonText}
             </Button>
           </div>
-          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-            <Link
-              to="/forget-password"
-              className="text-primary font-medium hover:underline"
-            >
-              <p>{forgetPasswordText}</p>
-            </Link>
-          </div>
-          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-            <p>{signupText}</p>
-            <Link
-              to="/register"
-              className="text-primary font-medium hover:underline"
-            >
-              Register
-            </Link>
+          <div className="mt-6">
+            <Button asChild size="lg">
+              <Link to="/">Go Home</Link>
+            </Button>
           </div>
         </div>
       </div>

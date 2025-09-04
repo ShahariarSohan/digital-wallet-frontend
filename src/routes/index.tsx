@@ -17,6 +17,9 @@ import Unauthorized from "@/pages/Unauthorized";
 import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/role";
 import type { TRole } from "@/types/interface";
+import ForgetPassword from "@/pages/ForgetPassword";
+import ResetPassword from "@/pages/ResetPassword";
+import GetResetPassword from "@/pages/GetResetPassword";
 const router = createBrowserRouter([
   {
     Component: App,
@@ -79,6 +82,18 @@ const router = createBrowserRouter([
   {
     Component: Unauthorized,
     path: "/unauthorized",
+  },
+  {
+    Component: ForgetPassword,
+    path: "/forget-password",
+  },
+  {
+    Component: ResetPassword,
+    path: "/reset-password",
+  },
+  {
+    Component: GetResetPassword,
+    path: "/get-reset-link",
   },
 ]);
 

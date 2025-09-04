@@ -104,6 +104,7 @@ export const RegisterForm = ({
       const res = await register(userInfo).unwrap();
       console.log(res);
       toast.success("Successfully registered");
+      form.reset()
       navigate("/login");
     } catch (error) {
       console.error(error);

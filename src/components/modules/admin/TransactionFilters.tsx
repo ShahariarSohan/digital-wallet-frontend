@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AmountFilter } from "@/components/AmountFilters";
 import SearchBox from "@/components/SearchBox";
 import SkeletonCard from "@/components/SkeletonCard";
