@@ -32,6 +32,7 @@ import PasswordDialog from "@/components/PasswordDialog";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { useUpdateUserProfileMutation } from "@/redux/features/user/user.api";
 import SkeletonCard from "@/components/SkeletonCard";
+import AvatarUpload from "@/components/AvatarUpload";
 
 // ---- Custom Zod Schema ----
 
@@ -83,15 +84,12 @@ if (isLoading) {
   // ---- Password Form ----
 
   return (
-    <div className="flex  flex-col lg:flex-row gap-6 p-4 sm:p-6">
+    <div className="flex  flex-col lg:flex-row gap-6 p-4 sm:p-6 items-center">
       {/* Profile Card */}
       <Card className="flex-1 max-w-md mx-auto md:mx-0">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-              {user?.name.charAt(0).toUpperCase()}
-            </div>
-
+            <AvatarUpload userName={user?.name}></AvatarUpload>
             {user?.name}
           </CardTitle>
           <CardDescription>User Information</CardDescription>
