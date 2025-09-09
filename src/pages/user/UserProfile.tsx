@@ -1,11 +1,9 @@
-import UserProfileView from "@/components/modules/user/UserProfieView";
-
-
+import ProfileView from "@/components/modules/ProfileView";
 
 export default function UserProfile() {
   return (
     <div className="my-10">
-      <UserProfileView></UserProfileView>
+      <ProfileView></ProfileView>
     </div>
   );
 }

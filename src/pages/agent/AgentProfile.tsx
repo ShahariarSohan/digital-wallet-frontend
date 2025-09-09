@@ -1,9 +1,9 @@
-import AgentProfileView from "@/components/modules/agent/AgentProfileView";
+import ProfileView from "@/components/modules/ProfileView";
 
 export default function AgentProfile() {
   return (
     <div className="my-10">
-      <AgentProfileView></AgentProfileView>
+      <ProfileView></ProfileView>
     </div>
   );
 }

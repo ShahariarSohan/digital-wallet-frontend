@@ -1,9 +1,22 @@
-import {  XIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
 
-import { useFileUpload } from "@/hooks/use-file-upload";
+import { useFileUpload, type FileMetadata } from "@/hooks/use-file-upload";
 import { Button } from "@/components/ui/button";
+import { useEffect, type Dispatch } from "react";
 
-export default function AvatarUpload({ userName }) {
+type AvatarUploadProps = {
+  userName: string;
+  onUpload: Dispatch<React.SetStateAction<File | FileMetadata | null>>;
+  picture: string;
+  imageFile: File | FileMetadata | null;
+};
+
+export default function AvatarUpload({
+  userName,
+  onUpload,
+  picture,
+  imageFile,
+}: AvatarUploadProps) {
   const [
     { files, isDragging },
     {
@@ -18,6 +31,13 @@ export default function AvatarUpload({ userName }) {
   ] = useFileUpload({
     accept: "image/*",
   });
+  useEffect(() => {
+    if (files.length > 0) {
+      onUpload(files?.[0].file);
+    } else {
+      onUpload(null);
+    }
+  }, [files, onUpload]);
 
   const previewUrl = files[0]?.preview || null;
 
@@ -34,6 +54,7 @@ export default function AvatarUpload({ userName }) {
           onDrop={handleDrop}
           data-dragging={isDragging || undefined}
           aria-label={previewUrl ? "Change image" : "Upload image"}
+          title="Upload image"
         >
           {previewUrl ? (
             <img
@@ -44,15 +65,24 @@ export default function AvatarUpload({ userName }) {
               height={64}
               style={{ objectFit: "cover" }}
             />
+          ) : picture ? (
+            <img
+              className="size-full object-cover"
+              src={picture}
+              alt="Uploaded image"
+              width={64}
+              height={64}
+              style={{ objectFit: "cover" }}
+            />
           ) : (
             <div aria-hidden="true">
               <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-                {userName.charAt(0).toUpperCase()}
+                {userName?.charAt(0).toUpperCase()}
               </div>
             </div>
           )}
         </button>
-        {previewUrl && (
+        {previewUrl && imageFile && (
           <Button
             onClick={() => removeFile(files[0]?.id)}
             size="icon"
