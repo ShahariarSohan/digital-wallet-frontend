@@ -105,7 +105,7 @@ export const RegisterForm = ({
       console.log(res);
       toast.success("Successfully registered");
       form.reset()
-      navigate("/login");
+      navigate("/verify", { state: {email: data.email,name: data.name } });
     } catch (error) {
       console.error(error);
       toast.error("Registration failed");

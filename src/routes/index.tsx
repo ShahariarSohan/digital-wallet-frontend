@@ -20,6 +20,8 @@ import type { TRole } from "@/types/interface";
 import ForgetPassword from "@/pages/ForgetPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import GetResetPassword from "@/pages/GetResetPassword";
+import VerifyOtp from "@/pages/VerifyOtp";
+
 const router = createBrowserRouter([
   {
     Component: App,
@@ -95,6 +97,10 @@ const router = createBrowserRouter([
     Component: GetResetPassword,
     path: "/get-reset-link",
   },
+  {
+    Component: VerifyOtp,
+    path:'/verify'
+ }
 ]);
 
 export default router;
