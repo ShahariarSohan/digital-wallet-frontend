@@ -11,20 +11,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAdminInfoQuery, useAgentInfoQuery, useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { role } from "@/constants/role";
+import { useMyInfoQuery } from "@/redux/features/auth/auth.api";
+
 import { useSearchParams } from "react-router";
 
 export default function TransactionFilters() {
-  const { data:user, isLoading } = useUserInfoQuery(undefined)
-  const { data:agent } = useAgentInfoQuery(undefined)
-  const {data:admin} = useAdminInfoQuery(undefined)
+  const { data, isLoading } = useMyInfoQuery(undefined)
+
   
   
   const [searchParams, setSearchParams] = useSearchParams();
   if (isLoading) {
     return <SkeletonCard></SkeletonCard>
   }
-  const loggedInData=user?.data.email||agent?.data.email||admin?.data.email
+  const loggedInRole=data?.data.role
   const selectedType = searchParams.get("type") || undefined;
   const adminTypes = [
     { value: "deposit" },
@@ -34,7 +35,7 @@ export default function TransactionFilters() {
     { value: "cash_out" },
   ];
   const agentTypes = [{ value: "cash_in" }, { value: "cash_out" }];
-  const transactionTypes=loggedInData!==agent?.data.email?adminTypes:agentTypes
+  const transactionTypes=loggedInRole!==role.agent?adminTypes:agentTypes
   const handleTypes = (value: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("type", value);
@@ -47,7 +48,7 @@ export default function TransactionFilters() {
   };
   return (
     <div className=" flex flex-col md:flex-row items-center gap-5 justify-between my-5">
-      {user?.data.email || agent?.data.email ? (
+      {data?.data.email  ? (
         <div>
           <SearchBox></SearchBox>
         </div>

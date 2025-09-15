@@ -29,19 +29,20 @@ import { toast } from "sonner";
 import Swal from "sweetalert2";
 
 import { useUpdateAdminSettingsMutation } from "@/redux/features/admin/admin.api";
-import { useAdminInfoQuery } from "@/redux/features/auth/auth.api";
+
 import SkeletonCard from "@/components/SkeletonCard";
 import { adminSettingsSchema } from "@/schemas/updateSchema";
 
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
+import { useMyInfoQuery } from "@/redux/features/auth/auth.api";
 
 type FormValues = z.infer<typeof adminSettingsSchema>;
 
 export default function AdminProfileSettings() {
   const { t } = useTranslation();
 
-  const { data: admin, isLoading } = useAdminInfoQuery(undefined);
+  const { data: admin, isLoading } = useMyInfoQuery(undefined);
   const [updateAdmin] = useUpdateAdminSettingsMutation();
   const [loading, setLoading] = useState(false);
 

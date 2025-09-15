@@ -20,10 +20,10 @@ import { role } from "@/constants/role";
 import { toast } from "sonner";
 import {
   authApi,
-  useAdminInfoQuery,
-  useAgentInfoQuery,
+ 
   useLogoutMutation,
-  useUserInfoQuery,
+  useMyInfoQuery,
+  
 } from "@/redux/features/auth/auth.api";
 import SettingsPage from "../modules/guidedTour/SettingsPage";
 import SkeletonCard from "../SkeletonCard";
@@ -41,10 +41,7 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
-  const { data: agentData,isLoading } = useAgentInfoQuery(undefined);
-  const { data: userData } = useUserInfoQuery(undefined);
-  const { data: adminData} = useAdminInfoQuery(undefined);
-
+  const { data, isLoading } = useMyInfoQuery(undefined);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const handleLogout = async () => {
@@ -56,10 +53,10 @@ export default function Navbar() {
     return <SkeletonCard></SkeletonCard>;
   }
   const loggedInEmail =
-    agentData?.data?.email || userData?.data?.email || adminData?.data?.email;
+    data?.data.email
   console.log(loggedInEmail);
   const loggedInRole =
-    agentData?.data?.role || userData?.data?.role || adminData?.data?.role;
+    data?.data.role
   console.log(loggedInRole);
   return (
     <header className=" px-4 container mx-auto">
@@ -146,7 +143,7 @@ export default function Navbar() {
                   <div id="nav-menu" key={index}>
                     {link.role === "public" && (
                       <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink 
+                        <NavigationMenuLink
                           asChild
                           className="text-muted-foreground hover:text-primary py-1.5 font-medium"
                         >

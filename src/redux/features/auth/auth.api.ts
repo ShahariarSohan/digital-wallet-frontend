@@ -26,27 +26,13 @@ export const authApi = baseApi.injectEndpoints({
         invalidatesTags: ["USER"],
       }),
     }),
-    userInfo: builder.query({
+    myInfo: builder.query({
       query: () => ({
-        url: "/user/me",
+        url: "/auth/me",
         method: "GET",
       }),
-      providesTags: ["USER"],
     }),
-    agentInfo: builder.query({
-      query: () => ({
-        url: "/agent/me",
-        method: "GET",
-      }),
-      providesTags: ["AGENT"],
-    }),
-    adminInfo: builder.query({
-      query: () => ({
-        url: "/admin/me",
-        method: "GET",
-      }),
-      providesTags:["ADMIN"]
-    }),
+   
     logout: builder.mutation({
       query: () => ({
         url: "/auth/logout",
@@ -81,10 +67,8 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useRegisterMutation,
   useLoginMutation,
-  useAgentInfoQuery,
-  useUserInfoQuery,
+  useMyInfoQuery,
   useLogoutMutation,
-  useAdminInfoQuery,
   useChangePasswordMutation,
   useForgetPasswordMutation,
   useResetPasswordMutation

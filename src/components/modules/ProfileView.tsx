@@ -18,28 +18,24 @@ import { Loader2, CheckCircle, XCircle, Lock } from "lucide-react";
 import { toast } from "sonner";
 
 import PasswordDialog from "@/components/PasswordDialog";
-import {
-  useAgentInfoQuery,
-  useUserInfoQuery,
-} from "@/redux/features/auth/auth.api";
+
 
 import SkeletonCard from "@/components/SkeletonCard";
 import AvatarUpload from "@/components/AvatarUpload";
 import type { FileMetadata } from "@/hooks/use-file-upload";
 import { useImageUploadMutation } from "@/redux/features/imageUpload/imageUpload.api";
 import ProfileUpdateForm from "./ProfileUpdateForm";
+import { useMyInfoQuery } from "@/redux/features/auth/auth.api";
 
 export default function ProfileView() {
   const [image, setImage] = useState<(File | FileMetadata) | null>(null);
   
   const [loadingImage, setLoadingImage] = useState(false);
   const [passwordOpen, setPasswordOpen] = useState(false);
-  const { data: userInfo, isLoading } = useUserInfoQuery(undefined, {
+  const { data, isLoading } = useMyInfoQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
-  const { data: agentInfo } = useAgentInfoQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+ 
   const [imageUpload] = useImageUploadMutation();
  
 
@@ -49,7 +45,7 @@ export default function ProfileView() {
     return <SkeletonCard />;
   }
 
-  const user = userInfo?.data || agentInfo?.data;
+  const user = data?.data 
   
   const handleImageUpload = async () => {
     setLoadingImage(true);

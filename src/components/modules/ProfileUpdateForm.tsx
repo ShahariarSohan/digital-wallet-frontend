@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useUpdateAgentProfileMutation } from "@/redux/features/agent/agent.api";
-import { useAgentInfoQuery, useUserInfoQuery } from "@/redux/features/auth/auth.api";
+
 import { useUpdateUserProfileMutation } from "@/redux/features/user/user.api";
 import { profileSchema } from "@/schemas/updateSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,20 +19,20 @@ import { toast } from "sonner";
 import type z from "zod";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
+import { useMyInfoQuery } from "@/redux/features/auth/auth.api";
+import { role } from "@/constants/role";
 
 type ProfileFormType = z.infer<typeof profileSchema>;
 
 export default function ProfileUpdateForm() {
   const [loadingProfile, setLoadingProfile] = useState(false);
-  const { data: agentInfo } = useAgentInfoQuery(undefined, {
+  const { data } = useMyInfoQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
-  const { data: userInfo } = useUserInfoQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+ 
   const [userUpdateProfile] = useUpdateUserProfileMutation();
   const [agentUpdateProfile] = useUpdateAgentProfileMutation();
-  const user = userInfo?.data || agentInfo?.data;
+  const user = data?.data 
   const profileForm = useForm<ProfileFormType>({
     resolver: zodResolver(profileSchema),
     defaultValues: { name: "", phone: "" },
@@ -47,7 +47,7 @@ export default function ProfileUpdateForm() {
     };
 
     try {
-      if (agentInfo?.data) {
+      if (data?.data.role===role.agent) {
         const res = await agentUpdateProfile(userData).unwrap();
         console.log(res);
       } else {
