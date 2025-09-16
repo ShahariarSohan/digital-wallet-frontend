@@ -82,23 +82,23 @@ const router = createBrowserRouter([
     path: "/register",
   },
   {
-    Component: withAuth(Unauthorized, (role.user || role.agent) as TRole),
+    Component: withAuth(Unauthorized, ...(Object.values(role) as TRole[])),
     path: "/unauthorized",
   },
   {
-    Component: withAuth(ForgetPassword, (role.user || role.agent) as TRole),
+    Component: withAuth(ForgetPassword, ...(Object.values(role) as TRole[])),
     path: "/forget-password",
   },
   {
-    Component: withAuth(ResetPassword, (role.user || role.agent) as TRole),
+    Component: withAuth(ResetPassword, ...(Object.values(role) as TRole[])),
     path: "/reset-password",
   },
   {
-    Component: withAuth(GetResetPassword, (role.user || role.agent) as TRole),
+    Component: withAuth(GetResetPassword, ...(Object.values(role) as TRole[])),
     path: "/get-reset-link",
   },
   {
-    Component: withAuth(VerifyOtp, (role.user || role.agent) as TRole),
+    Component: withAuth(VerifyOtp, ...(Object.values(role) as TRole[])),
     path: "/verify",
   },
 ]);

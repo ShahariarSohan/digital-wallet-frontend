@@ -8,7 +8,7 @@ export const agentApi = baseApi.injectEndpoints({
         method: "POST",
         data: cashInInfo,
       }),
-      invalidatesTags: ["WALLET", "RECENTTRANSACTIONS", "TRANSACTIONSTATS"],
+      invalidatesTags: ["WALLET", "RECENT_TRANSACTIONS", "TRANSACTION_STATS"],
     }),
     cashOut: builder.mutation({
       query: (cashOutInfo) => ({
@@ -16,7 +16,7 @@ export const agentApi = baseApi.injectEndpoints({
         method: "POST",
         data: cashOutInfo,
       }),
-      invalidatesTags: ["WALLET", "RECENTTRANSACTIONS", "TRANSACTIONSTATS"],
+      invalidatesTags: ["WALLET", "RECENT_TRANSACTIONS", "TRANSACTION_STATS"],
     }),
     updateAgentProfile: builder.mutation({
       query: (userData) => {

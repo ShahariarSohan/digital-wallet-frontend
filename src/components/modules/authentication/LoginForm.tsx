@@ -8,7 +8,7 @@ import { useLoginMutation } from "@/redux/features/auth/auth.api";
 
 
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 
@@ -32,7 +32,10 @@ export const LoginForm = ({
   signupText = "Need an account?",
   forgetPasswordText = "Forget your password?",
 }: Login2Props) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const path = location.state? location.state.pathname: "/";
+  console.log(path)
   const[login]=useLoginMutation()
    const form = useForm({
     defaultValues: {
@@ -54,7 +57,7 @@ export const LoginForm = ({
       console.log(result);
       toast.success(" Logged In Successfully");
       form.reset()
-      navigate("/")
+      navigate(`${path}`)
       
     } catch (err: any) {
       console.error(err);

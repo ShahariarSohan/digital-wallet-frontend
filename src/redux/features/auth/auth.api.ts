@@ -24,14 +24,16 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
         data: userInfo,
       }),
+      invalidatesTags: ["MY_INFO"],
     }),
     myInfo: builder.query({
       query: () => ({
         url: "/auth/me",
         method: "GET",
       }),
+      providesTags: ["MY_INFO"],
     }),
-   
+
     logout: builder.mutation({
       query: () => ({
         url: "/auth/logout",
@@ -59,7 +61,6 @@ export const authApi = baseApi.injectEndpoints({
         data: resetPasswordInfo,
       }),
     }),
-    
   }),
 });
 

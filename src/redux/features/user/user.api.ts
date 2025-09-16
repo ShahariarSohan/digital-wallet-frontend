@@ -8,7 +8,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         data: depositInfo,
       }),
-      invalidatesTags: ["WALLET", "RECENTTRANSACTIONS", "TRANSACTIONSTATS"],
+      invalidatesTags: ["WALLET", "RECENT_TRANSACTIONS", "TRANSACTION_STATS"],
     }),
     withdraw: builder.mutation({
       query: (withdrawInfo) => ({
@@ -16,7 +16,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         data: withdrawInfo,
       }),
-      invalidatesTags: ["WALLET", "RECENTTRANSACTIONS", "TRANSACTIONSTATS"],
+      invalidatesTags: ["WALLET", "RECENT_TRANSACTIONS", "TRANSACTION_STATS"],
     }),
     sendMoney: builder.mutation({
       query: (sendMoneyInfo) => ({
@@ -24,7 +24,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         data: sendMoneyInfo,
       }),
-      invalidatesTags: ["WALLET", "RECENTTRANSACTIONS", "TRANSACTIONSTATS"],
+      invalidatesTags: ["WALLET", "RECENT_TRANSACTIONS", "TRANSACTION_STATS"],
     }),
     updateUserProfile: builder.mutation({
       query: (userData) => {
