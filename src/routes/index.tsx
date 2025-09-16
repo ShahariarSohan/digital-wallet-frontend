@@ -82,25 +82,25 @@ const router = createBrowserRouter([
     path: "/register",
   },
   {
-    Component: Unauthorized,
+    Component: withAuth(Unauthorized, (role.user || role.agent) as TRole),
     path: "/unauthorized",
   },
   {
-    Component: ForgetPassword,
+    Component: withAuth(ForgetPassword, (role.user || role.agent) as TRole),
     path: "/forget-password",
   },
   {
-    Component: ResetPassword,
+    Component: withAuth(ResetPassword, (role.user || role.agent) as TRole),
     path: "/reset-password",
   },
   {
-    Component: GetResetPassword,
+    Component: withAuth(GetResetPassword, (role.user || role.agent) as TRole),
     path: "/get-reset-link",
   },
   {
-    Component: VerifyOtp,
-    path:'/verify'
- }
+    Component: withAuth(VerifyOtp, (role.user || role.agent) as TRole),
+    path: "/verify",
+  },
 ]);
 
 export default router;

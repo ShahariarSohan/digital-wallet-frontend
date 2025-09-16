@@ -20,10 +20,8 @@ import { role } from "@/constants/role";
 import { toast } from "sonner";
 import {
   authApi,
- 
   useLogoutMutation,
   useMyInfoQuery,
-  
 } from "@/redux/features/auth/auth.api";
 import SettingsPage from "../modules/guidedTour/SettingsPage";
 import SkeletonCard from "../SkeletonCard";
@@ -52,12 +50,9 @@ export default function Navbar() {
   if (isLoading) {
     return <SkeletonCard></SkeletonCard>;
   }
-  const loggedInEmail =
-    data?.data.email
-  console.log(loggedInEmail);
-  const loggedInRole =
-    data?.data.role
-  console.log(loggedInRole);
+  const loggedInEmail = data?.data.email;
+  const loggedInRole = data?.data.role;
+
   return (
     <header className=" px-4 container mx-auto">
       <div className="flex h-16 items-center justify-between gap-4">

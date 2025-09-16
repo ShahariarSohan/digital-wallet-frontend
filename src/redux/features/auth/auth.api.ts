@@ -23,7 +23,6 @@ export const authApi = baseApi.injectEndpoints({
         url: "/auth/login",
         method: "POST",
         data: userInfo,
-        invalidatesTags: ["USER"],
       }),
     }),
     myInfo: builder.query({
