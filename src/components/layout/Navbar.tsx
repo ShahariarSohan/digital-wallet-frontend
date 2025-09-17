@@ -26,7 +26,6 @@ import {
 import SettingsPage from "../modules/guidedTour/SettingsPage";
 import SkeletonCard from "../SkeletonCard";
 
-
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
   { href: "/", label: "Home", role: "public" },
@@ -44,7 +43,7 @@ export default function Navbar() {
   const { data, isLoading } = useMyInfoQuery(undefined);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
- 
+
   const handleLogout = async () => {
     await logout(undefined).unwrap();
     dispatch(authApi.util.resetApiState());
@@ -187,7 +186,3 @@ export default function Navbar() {
     </header>
   );
 }
-
-
-
-

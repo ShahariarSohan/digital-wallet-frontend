@@ -61,7 +61,6 @@ export const LoginForm = ({
     };
     try {
       const res = await login(userInfo).unwrap();
-      console.log(res.data.data)
       if (res.success) {
         toast.success(" Logged In Successfully");
         form.reset();

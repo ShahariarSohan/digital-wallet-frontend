@@ -48,7 +48,7 @@ export default function TransactionFilters() {
   };
   return (
     <div className=" flex flex-col md:flex-row items-center gap-5 justify-between my-5">
-      {data?.data.email  ? (
+      {data?.data.role!==role.admin ? (
         <div>
           <SearchBox></SearchBox>
         </div>
