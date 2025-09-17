@@ -8,12 +8,12 @@
 
 **Technology Stack:** Frontend: React.js & TypeScript, Redux Toolkit & RTK Query, React Router, Tailwind CSS for responsive styling, toast notifications & guided tours, Recharts for charts. Backend: Node.js & Express.js, MongoDB & Mongoose, JWT authentication, bcrypt for password hashing. Tools & Libraries: axios for API requests, react-joyride for guided tours, Recharts for data visualization.
 
-**Setup Instructions:** Clone the repository using [git clone https://github.com/yourusername/epay.git](https://github.com/ShahariarSohan/digital-wallet-frontend.git) and navigate to the folder and Install dependencies with `npm install`. Create a `.env` file in the root and add `VITE_BASE_URL=http://localhost:5000/api/v1`. Start the development server with `npm start`. Make sure the Node.js/Express backend is running and MongoDB is properly configured. Use the provided or mocked API endpoints for testing.
+**Setup Instructions:** Clone the repository using [https://github.com/ShahariarSohan/digital-wallet-frontend.git](https://github.com/ShahariarSohan/digital-wallet-frontend.git) and navigate to the folder and Install dependencies with `npm install`. Create a `.env` file in the root and add `VITE_BASE_URL=http://localhost:5000/api/v1`. Start the development server with `npm start`. Make sure the Node.js/Express backend is running and MongoDB is properly configured. Use the provided or mocked API endpoints for testing.
 
 **Usage:** Open `http://localhost:5000` in your browser. Explore public landing pages (Home, About, Features, Contact, FAQ). Register as a User or Agent. Login and access your role-based dashboard. Users can deposit, withdraw, send money, and view transactions. Agents can manage users’ wallets, perform cash-in/out, and track commissions. Admins can manage all accounts, monitor transactions, and adjust system settings. Guided tour highlights key dashboard features for new users and can be restarted via settings.
 
 **Live URL:**
- [https://digital-wallet-frontend-ten.vercel.app](https://digital-wallet-frontend-ten.vercel.app)
+ [https://epay-wallet-frontend.vercel.app](https://epay-wallet-frontend.vercel.app)
 
 **Additional Notes:** Role-based navigation and secure access control, guided tour stored in localStorage to run once for new users, fully responsive and accessible design, smooth UI transitions, pagination and advanced filtering for transaction tables, skeleton loaders for better performance, polished UX, and consistent theme colors, typography, and spacing.
 
