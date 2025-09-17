@@ -2,15 +2,25 @@
 import Logo from "@/assets/icons/Logo";
 import Password from "@/components/Password";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import {
+  useLoginMutation,
+  
+} from "@/redux/features/auth/auth.api";
 
 
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
-
 
 interface Login2Props {
   heading?: string;
@@ -32,33 +42,31 @@ export const LoginForm = ({
   signupText = "Need an account?",
   forgetPasswordText = "Forget your password?",
 }: Login2Props) => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const path = location.state? location.state.pathname: "/";
-  console.log(path)
-  const[login]=useLoginMutation()
-   const form = useForm({
+  const navigate = useNavigate();
+  const location = useLocation();
+  const path = location.state ? location.state.pathname : "/";
+  const [login] = useLoginMutation();
+  const form = useForm({
     defaultValues: {
       email: "",
       password: "",
       confirmPassword: "",
     },
-   });
+  });
 
-  
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userInfo = {
       email: data.email,
       password: data.password,
     };
-    console.log(userInfo)
     try {
-      const result = await login(userInfo).unwrap();
-      console.log(result);
-      toast.success(" Logged In Successfully");
-      form.reset()
-      navigate(`${path}`)
-      
+      const res = await login(userInfo).unwrap();
+      console.log(res.data.data)
+      if (res.success) {
+        toast.success(" Logged In Successfully");
+        form.reset();
+        navigate(`${path}`);
+      }
     } catch (err: any) {
       console.error(err);
       if (

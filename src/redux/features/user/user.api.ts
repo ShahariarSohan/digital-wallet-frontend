@@ -39,7 +39,7 @@ export const userApi = baseApi.injectEndpoints({
         }
         
       },
-      invalidatesTags: ["USER"],
+      invalidatesTags: ["MY_INFO"],
     }),
   }),
 });

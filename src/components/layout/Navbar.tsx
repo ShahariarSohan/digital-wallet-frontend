@@ -26,6 +26,7 @@ import {
 import SettingsPage from "../modules/guidedTour/SettingsPage";
 import SkeletonCard from "../SkeletonCard";
 
+
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
   { href: "/", label: "Home", role: "public" },
@@ -39,9 +40,11 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
+ 
   const { data, isLoading } = useMyInfoQuery(undefined);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
+ 
   const handleLogout = async () => {
     await logout(undefined).unwrap();
     dispatch(authApi.util.resetApiState());
@@ -52,7 +55,7 @@ export default function Navbar() {
   }
   const loggedInEmail = data?.data.email;
   const loggedInRole = data?.data.role;
-
+  console.log(loggedInEmail, loggedInRole);
   return (
     <header className=" px-4 container mx-auto">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -184,3 +187,7 @@ export default function Navbar() {
     </header>
   );
 }
+
+
+
+

@@ -11,7 +11,9 @@ import { useMyTransactionStatsQuery } from "@/redux/features/stats/stats.api";
 
 export default function AgentDashboardResponsive() {
   const { data: walletData, isLoading } = useMyWalletQuery(undefined);
-  const { data: recentTransactions } = useRecentTransactionQuery(undefined);
+  const { data: recentTransactions } = useRecentTransactionQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
  
   const { data: myTransactionStats } = useMyTransactionStatsQuery(undefined, {
     refetchOnMountOrArgChange: true,

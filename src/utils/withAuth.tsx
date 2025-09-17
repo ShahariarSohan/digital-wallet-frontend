@@ -9,8 +9,6 @@ export const withAuth = (Component: ComponentType, ...requiredRole: TRole[]) => 
     const { data, isLoading } = useMyInfoQuery(undefined);
     const loggedInData = data?.data;
     const loggedInEmail = loggedInData?.email;
-    console.log(loggedInData?.role,loggedInEmail)
-    console.log(requiredRole)
     if (!isLoading && !loggedInEmail) {
       return <Navigate to="/login" state={{pathname:location.pathname }} replace></Navigate>;
     }

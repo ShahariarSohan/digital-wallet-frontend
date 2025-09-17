@@ -1,16 +1,17 @@
+import { role } from "@/constants/role";
 import { baseApi } from "@/redux/base.api";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (userInfo) => {
-        const role = userInfo.role;
+        const userRole = userInfo.role;
         const data = {
           name: userInfo.name,
           email: userInfo.email,
           password: userInfo.password,
         };
-        const url = role === "agent" ? "/agent/apply" : "/user/register";
+        const url = userRole === role.agent ? "/agent/apply" : "/user/register";
         return {
           url,
           method: "POST",
@@ -24,7 +25,7 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
         data: userInfo,
       }),
-      invalidatesTags: ["MY_INFO"],
+      invalidatesTags: ["MY_INFO","WALLET"],
     }),
     myInfo: builder.query({
       query: () => ({

@@ -12,7 +12,12 @@ import { useMyWalletQuery } from "@/redux/features/wallet/wallet.api";
 
 export default function UserDashboardOverview() {
   const { data: walletData, isLoading } = useMyWalletQuery(undefined);
-  const { data: recentTransactionsData } = useRecentTransactionQuery(undefined);
+  const { data: recentTransactionsData } = useRecentTransactionQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
   if (isLoading) {
     return <SkeletonCard></SkeletonCard>;
