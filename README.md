@@ -1,20 +1,57 @@
-# ePay – Digital Wallet System
+# 💳 ePay – Digital Wallet  
+
+A **secure, role-based, and user-friendly application** for a digital wallet system – inspired by **bKash/Nagad**.  
+Built with **React + Redux Toolkit + RTK Query** following enterprise-grade patterns.  
+
+🚀 Designed to deliver a **real-world wallet experience**: authentication, dashboards, and seamless financial operations.  
+
+---
+
+## ✨ Core Features  
+
+- 🎨 Responsive Public Landing (Home, About, Features, Contact, FAQ)  
+- 🔐 JWT-based Authentication (Login, Register with Role)  
+- 👤 Role-based Dashboards (`Admin | User | Agent`)  
+- 💰 Wallet Operations: Deposit | Withdraw | Send Money | Cash In | Cash Out
+- 📊 Transaction history with filters, pagination, and charts  
+- 🛠️ Admin controls: Manage users/agents, system overview  
+- 📱 Fully responsive design with dark/light mode toggle  
+- 🛎️ Toast notifications + Guided tour (driver.js / joyride)  
+
+---
+
+## 🛠️ Tech Stack  
+
+- React, TypeScript, Redux Toolkit, RTK Query, React Router  
+- **Styling:** Tailwind CSS  
+- **State Management:** Redux Toolkit + RTK Query  
+- **Auth:** JWT, persisted login  
+- **UI Enhancements:** Charts, Skeleton loaders, Toasts, Guided Tour  
+
+---
+
+## 📸 Demo  
+
+👉 [Live Deployment Link](https://epay-wallet-frontend.vercel.app)  
+ 
+---
+
+## 📚 Case Studies  
+
+👉 [Role-based Routing & Protected Dashboards](./caseStudies/roleBasedRouting.md)  
+Explains how different dashboards (`Admin | User | Agent`) were implemented securely with React Router and persisted auth state.  
+
+👉 [State Management with Redux Toolkit & RTK Query](./caseStudies/stateManagement.md)  
+Covers why Redux Toolkit was chosen over Context API, and how RTK Query simplifies API integration and caching.  
+
+👉 [Guided Tour Integration](./caseStudies/guidedTour.md)  
+Details how driver.js/react-joyride was implemented, how steps are attached to DOM elements, and how the tour is shown only once using `localStorage`.  
 
 
+## 🚀 Quick Start  
 
-**ePay** is a secure, role-based, and user-friendly digital wallet application, inspired by services like bKash and Nagad. It enables **Users**, **Agents**, and **Admins** to perform financial operations and manage wallets seamlessly through an intuitive interface. The app includes public landing pages, role-based dashboards, secure authentication, interactive charts, toast notifications, guided tours, responsive design, lazy-loading, skeleton loaders, and form validations for a professional and smooth user experience.
-
-**Key Features:** Public landing pages (Home, About, Features, Contact, FAQ), User dashboard (wallet overview, deposits, withdrawals, send money, transaction history), Agent dashboard (cash-in/out, user wallet management, commission tracking), Admin dashboard (manage users/agents, system overview, transaction monitoring), JWT-based authentication with role-based access, interactive charts and tables, toast notifications, guided tours (react-joyride), responsive design for mobile, tablet, and desktop, lazy-loading and skeleton loaders, and robust form validations (required fields, numeric checks, positive amounts).
-
-**Technology Stack:** Frontend: React.js & TypeScript, Redux Toolkit & RTK Query, React Router, Tailwind CSS for responsive styling, toast notifications & guided tours, Recharts for charts. Backend: Node.js & Express.js, MongoDB & Mongoose, JWT authentication, bcrypt for password hashing. Tools & Libraries: axios for API requests, react-joyride for guided tours, Recharts for data visualization.
-
-**Setup Instructions:** Clone the repository using [https://github.com/ShahariarSohan/digital-wallet-frontend.git](https://github.com/ShahariarSohan/digital-wallet-frontend.git) and navigate to the folder and Install dependencies with `npm install`. Create a `.env` file in the root and add `VITE_BASE_URL=http://localhost:5000/api/v1`. Start the development server with `npm start`. Make sure the Node.js/Express backend is running and MongoDB is properly configured. Use the provided or mocked API endpoints for testing.
-
-**Usage:** Open `http://localhost:5000` in your browser. Explore public landing pages (Home, About, Features, Contact, FAQ). Register as a User or Agent. Login and access your role-based dashboard. Users can deposit, withdraw, send money, and view transactions. Agents can manage users’ wallets, perform cash-in/out, and track commissions. Admins can manage all accounts, monitor transactions, and adjust system settings. Guided tour highlights key dashboard features for new users and can be restarted via settings.
-
-**Live URL:**
- [https://epay-wallet-frontend.vercel.app](https://epay-wallet-frontend.vercel.app)
-
-**Additional Notes:** Role-based navigation and secure access control, guided tour stored in localStorage to run once for new users, fully responsive and accessible design, smooth UI transitions, pagination and advanced filtering for transaction tables, skeleton loaders for better performance, polished UX, and consistent theme colors, typography, and spacing.
-
-
+```bash
+git clone https://github.com/ShahariarSohan/digital-wallet-frontend.git
+cd epay-wallet
+npm install
+npm run dev
