@@ -16,7 +16,7 @@ Built with **React + Redux Toolkit + RTK Query** following enterprise-grade patt
 - 📊 Transaction history with filters, pagination, and charts  
 - 🛠️ Admin controls: Manage users/agents, system overview  
 - 📱 Fully responsive design with dark/light mode toggle  
-- 🛎️ Toast notifications + Guided tour (driver.js / joyride)  
+- 🛎️ Toast notifications + Guided tour (Shepherd js)  
 
 ---
 
@@ -26,7 +26,7 @@ Built with **React + Redux Toolkit + RTK Query** following enterprise-grade patt
 - **Styling:** Tailwind CSS  
 - **State Management:** Redux Toolkit + RTK Query  
 - **Auth:** JWT, persisted login  
-- **UI Enhancements:** Charts, Skeleton loaders, Toasts, Guided Tour (Shadcn)  
+- **UI Enhancements:**Shadcn, Charts, Skeleton loaders, Toasts, Guided Tour,   
 
 ---
 
