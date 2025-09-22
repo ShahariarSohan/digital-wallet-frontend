@@ -23,10 +23,10 @@ Built with **React + Redux Toolkit + RTK Query** following enterprise-grade patt
 ## 🛠️ Tech Stack  
 
 - **Core:** React, TypeScript, Redux Toolkit, RTK Query, React Router  
-- **Styling:** Shadcn  
+- **Styling:** Tailwind CSS  
 - **State Management:** Redux Toolkit + RTK Query  
 - **Auth:** JWT, persisted login  
-- **UI Enhancements:** Charts, Skeleton loaders, Toasts, Guided Tour  
+- **UI Enhancements:** Charts, Skeleton loaders, Toasts, Guided Tour (Shadcn)  
 
 ---
 
