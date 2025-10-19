@@ -166,6 +166,12 @@ export default function Navbar() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
+          <div id="theme-toggle">
+            <ModeToggle></ModeToggle>
+          </div>
+          <div className="hidden md:block">
+            <SettingsPage></SettingsPage>
+          </div>
           {loggedInEmail ? (
             <Button onClick={handleLogout} size="sm" className="text-sm ">
               Logout
@@ -175,12 +181,6 @@ export default function Navbar() {
               <Link to="/login">Login</Link>
             </Button>
           )}
-          <div id="theme-toggle">
-            <ModeToggle></ModeToggle>
-          </div>
-          <div className="hidden md:block">
-            <SettingsPage></SettingsPage>
-          </div>
         </div>
       </div>
     </header>
