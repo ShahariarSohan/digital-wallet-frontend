@@ -47,7 +47,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     await logout(undefined).unwrap();
     dispatch(authApi.util.resetApiState());
-    toast.success("Logged Out");
+    toast.success("Logged out");
   };
   if (isLoading) {
     return <SkeletonCard></SkeletonCard>;
