@@ -22,7 +22,7 @@ import {
   useLogoutMutation,
   useMyInfoQuery,
 } from "@/redux/features/auth/auth.api";
-import AuthActions from "@/lib/AuthActions";
+import AuthActions from "@/utils/AuthActions";
 
 import Menu4 from "@/assets/icons/Menu";
 
@@ -56,7 +56,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="container mx-auto px-4">
+    <header className="container mx-auto px-4 sticky top-0 z-50 bg-background">
       {/* lg+: 3-column grid → left / center / right */}
       <div className="flex h-16 items-center justify-between lg:grid lg:grid-cols-3">
         {/* ================= LEFT ================= */}
@@ -118,7 +118,10 @@ export default function Navbar() {
                 ))}
 
                 <div className="border-t pt-3">
-                  <AuthActions loggedInRole={loggedInRole} onLogout={handleLogout} />
+                  <AuthActions
+                    loggedInRole={loggedInRole}
+                    onLogout={handleLogout}
+                  />
                 </div>
               </nav>
             </PopoverContent>

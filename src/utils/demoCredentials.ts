@@ -8,7 +8,7 @@ export const DEMO_CREDENTIALS = {
     password: "agenT12!",
   },
   user: {
-    email: "user@gmail.com",
+    email: "sohan@gmail.com",
     password: "sohaN12!",
   },
 };

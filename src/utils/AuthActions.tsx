@@ -3,15 +3,16 @@ import type { TRole } from "@/types/interface";
 import { Link } from "react-router";
 import { getRedirectPath } from "./getRedirectPath";
 
+
 export default function AuthActions({
   loggedInRole,
   onLogout,
 }: {
   loggedInRole: TRole;
   onLogout: () => void;
-  }) {
- const to =getRedirectPath(loggedInRole)
- 
+}) {
+  const to = getRedirectPath(loggedInRole);
+
   return loggedInRole ? (
     <div className="flex flex-col lg:flex-row gap-2">
       <Button asChild size="sm">

@@ -12,13 +12,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { DEMO_CREDENTIALS } from "@/lib/demoCredentials";
-import { getRedirectPath } from "@/lib/getRedirectPath";
+import { DEMO_CREDENTIALS } from "@/utils/demoCredentials";
+import { getRedirectPath } from "@/utils/getRedirectPath";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { Loader2 } from "lucide-react";
 
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link,  useNavigate } from "react-router";
 import { toast } from "sonner";
 
 interface Login2Props {
@@ -44,8 +44,8 @@ export const LoginForm = ({
   forgetPasswordText = "Forget your password?",
 }: Login2Props) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const path = location.state ? location.state.pathname : "/";
+
+  
   const [login, { isLoading }] = useLoginMutation();
   const form = useForm({
     defaultValues: {
@@ -70,7 +70,7 @@ export const LoginForm = ({
         const userRole = res.data?.role || res.role;
         const redirectTo = getRedirectPath(userRole);
 
-        navigate(path !== "/" ? path : redirectTo);
+        navigate(redirectTo||"/");
       }
     } catch (err: any) {
       console.error(err);
