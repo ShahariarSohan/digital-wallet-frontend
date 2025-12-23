@@ -22,8 +22,9 @@ import {
   useLogoutMutation,
   useMyInfoQuery,
 } from "@/redux/features/auth/auth.api";
-import AuthActions from "@/lib/authActions";
-import { Menu } from "lucide-react";
+import AuthActions from "@/lib/AuthActions";
+
+import Menu4 from "@/assets/icons/Menu";
 
 /* ------------------ NAV LINKS ------------------ */
 const navigationLinks = [
@@ -94,12 +95,8 @@ export default function Navbar() {
           {/* Mobile / Tablet Menu */}
           <Popover>
             <PopoverTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="lg:hidden text-2xl"
-              >
-                <Menu></Menu>
+              <Button variant="outline" size="sm" className="lg:hidden">
+                <Menu4/>
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-52 p-3">
