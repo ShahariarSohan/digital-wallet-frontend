@@ -17,13 +17,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { emailAmountSchema, type EmailAmountSchemaType } from "@/schemas/schema";
 import { useCashOutMutation } from "@/redux/features/agent/agent.api";
 import { failAlert, successAlert2 } from "@/alerts/sweetAlert";
+import { Loader2 } from "lucide-react";
 
 
 
 
 
 export default function CashOutForm() {
-  const [cashOut]=useCashOutMutation()
+  const [cashOut,{isLoading}]=useCashOutMutation()
   const form = useForm<EmailAmountSchemaType>({
     resolver: zodResolver(emailAmountSchema) as any,
     defaultValues: { email: "", amount: 100 },
@@ -104,7 +105,14 @@ export default function CashOutForm() {
                 />
 
                 <Button type="submit" className="w-full bg-primary mt-2">
-                  Cash Out
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Cashing out...
+                    </>
+                  ) : (
+                    "Cash-Out"
+                  )}
                 </Button>
               </form>
             </Form>

@@ -16,9 +16,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { amountSchema, type AmountSchemaType } from "@/schemas/schema";
 import { useWithdrawMutation } from "@/redux/features/user/user.api";
 import { failAlert, successAlert } from "@/alerts/sweetAlert";
+import { Loader2 } from "lucide-react";
 
 export default function WithdrawForm() {
-  const [withdraw]=useWithdrawMutation()
+  const [withdraw,{isLoading}]=useWithdrawMutation()
   const form = useForm<AmountSchemaType>({
     resolver: zodResolver(amountSchema)as any,
     defaultValues: { amount: 100 },
@@ -74,7 +75,14 @@ export default function WithdrawForm() {
                 />
 
                 <Button type="submit" className="w-full bg-primary mt-2">
-                  Withdraw
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Withdrawing...
+                    </>
+                  ) : (
+                    "Withdraw"
+                  )}
                 </Button>
               </form>
             </Form>

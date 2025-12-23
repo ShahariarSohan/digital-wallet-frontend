@@ -19,10 +19,11 @@ import {
 } from "@/schemas/schema";
 import { failAlert, successAlert2 } from "@/alerts/sweetAlert";
 import { useCashInMutation } from "@/redux/features/agent/agent.api";
+import { Loader2 } from "lucide-react";
 
 
 export default function CashInForm() {
-  const[cashIn]=useCashInMutation()
+  const[cashIn,{isLoading}]=useCashInMutation()
     const form = useForm<EmailAmountSchemaType>({
       resolver: zodResolver(emailAmountSchema) as any,
       defaultValues: { email: "", amount: 100 as number },
@@ -103,7 +104,14 @@ export default function CashInForm() {
                 />
 
                 <Button type="submit" className="w-full bg-primary mt-2">
-                  Cash In
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    Cashing in...
+                    </>
+                  ) : (
+                    "Cash-In"
+                  )}
                 </Button>
               </form>
             </Form>

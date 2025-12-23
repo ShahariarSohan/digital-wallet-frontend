@@ -16,9 +16,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {  emailAmountSchema, type EmailAmountSchemaType } from "@/schemas/schema";
 import { useSendMoneyMutation } from "@/redux/features/user/user.api";
 import { failAlert, successAlert } from "@/alerts/sweetAlert";
+import { Loader2 } from "lucide-react";
 
 export default function SendMoneyForm() {
-  const [sendMoney] = useSendMoneyMutation()
+  const [sendMoney,{isLoading}] = useSendMoneyMutation()
   const form = useForm<EmailAmountSchemaType>({
     resolver: zodResolver(emailAmountSchema)as any,
     defaultValues: { email: "", amount: 100 },
@@ -97,7 +98,14 @@ export default function SendMoneyForm() {
                   />
 
                   <Button type="submit" className="w-full bg-primary mt-2">
-                    Send
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Sending money...
+                      </>
+                    ) : (
+                      "Send Money"
+                    )}
                   </Button>
                 </form>
               </Form>

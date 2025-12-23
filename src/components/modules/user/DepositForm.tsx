@@ -17,9 +17,10 @@ import { amountSchema, type AmountSchemaType } from "@/schemas/schema";
 import { useDepositMutation } from "@/redux/features/user/user.api";
 
 import { failAlert, successAlert } from "@/alerts/sweetAlert";
+import { Loader2 } from "lucide-react";
 
 export default function DepositForm() {
-  const [deposit] = useDepositMutation();
+  const [deposit,{isLoading}] = useDepositMutation();
 
   const form = useForm<AmountSchemaType>({
     resolver: zodResolver(amountSchema) as any,
@@ -76,7 +77,14 @@ export default function DepositForm() {
                 />
 
                 <Button type="submit" className="w-full bg-primary mt-2">
-                  Deposit
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Depositing...
+                    </>
+                  ) : (
+                    "Deposit"
+                  )}
                 </Button>
               </form>
             </Form>
