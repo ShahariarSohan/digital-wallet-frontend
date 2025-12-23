@@ -12,11 +12,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  useLoginMutation,
-  
-} from "@/redux/features/auth/auth.api";
-
+import { DEMO_CREDENTIALS } from "@/lib/demoCredentials";
+import { getRedirectPath } from "@/lib/getRedirectPath";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { Loader2 } from "lucide-react";
 
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -36,6 +35,8 @@ interface Login2Props {
   forgetPasswordText?: string;
 }
 
+// Demo credentials
+
 export const LoginForm = ({
   heading = "Login",
   buttonText = "Login",
@@ -45,7 +46,7 @@ export const LoginForm = ({
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.state ? location.state.pathname : "/";
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const form = useForm({
     defaultValues: {
       email: "",
@@ -62,9 +63,14 @@ export const LoginForm = ({
     try {
       const res = await login(userInfo).unwrap();
       if (res.success) {
-        toast.success(" Logged In Successfully");
+        toast.success("Logged In Successfully");
         form.reset();
-        navigate(`${path}`);
+
+        // Role-based redirection
+        const userRole = res.data?.role || res.role;
+        const redirectTo = getRedirectPath(userRole);
+
+        navigate(path !== "/" ? path : redirectTo);
       }
     } catch (err: any) {
       console.error(err);
@@ -75,6 +81,16 @@ export const LoginForm = ({
         toast.error("Wrong credentials");
       }
     }
+  };
+
+  // Function to fill form with demo credentials
+  const fillDemoCredentials = (role: "admin" | "agent" | "user") => {
+    const credentials = DEMO_CREDENTIALS[role];
+    form.setValue("email", credentials.email);
+    form.setValue("password", credentials.password);
+    toast.info(
+      `${role.charAt(0).toUpperCase() + role.slice(1)} credentials loaded`
+    );
   };
 
   return (
@@ -138,9 +154,56 @@ export const LoginForm = ({
               form="login_form"
               type="submit"
               className="w-full bg-primary mt-2"
+              disabled={isLoading}
             >
-              {buttonText}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Logging in...
+                </>
+              ) : (
+                buttonText
+              )}
             </Button>
+
+            {/* Demo Credentials Section */}
+            <div className="w-full border-t pt-4 mt-2">
+              <p className="text-xs text-muted-foreground text-center mb-3">
+                Quick Demo Login
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fillDemoCredentials("admin")}
+                  disabled={isLoading}
+                  className="text-xs"
+                >
+                  Admin
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fillDemoCredentials("agent")}
+                  disabled={isLoading}
+                  className="text-xs"
+                >
+                  Agent
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fillDemoCredentials("user")}
+                  disabled={isLoading}
+                  className="text-xs"
+                >
+                  User
+                </Button>
+              </div>
+            </div>
           </div>
           <div className="text-muted-foreground flex justify-center gap-1 text-sm">
             <Link
@@ -157,6 +220,11 @@ export const LoginForm = ({
               className="text-primary font-medium hover:underline"
             >
               Register
+            </Link>
+          </div>
+          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
+            <Link to="/" className="text-primary font-medium hover:underline">
+              ← Go back to Home
             </Link>
           </div>
         </div>

@@ -43,7 +43,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation(); // ✅ get current path
 
-  const loggedIn = Boolean(data?.data?.email);
+  const loggedInRole = data?.data?.role;
 
   const handleLogout = async () => {
     const res = await logout(undefined).unwrap();
@@ -91,14 +91,14 @@ export default function Navbar() {
 
           {/* Desktop auth buttons */}
           <div className="hidden lg:block">
-            <AuthActions loggedIn={loggedIn} onLogout={handleLogout} />
+            <AuthActions loggedInRole={loggedInRole} onLogout={handleLogout} />
           </div>
 
           {/* Mobile / Tablet Menu */}
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline" size="sm" className="lg:hidden p-2">
-                <Menu4/>
+                <Menu4 />
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-52 p-3">
@@ -118,7 +118,7 @@ export default function Navbar() {
                 ))}
 
                 <div className="border-t pt-3">
-                  <AuthActions loggedIn={loggedIn} onLogout={handleLogout} />
+                  <AuthActions loggedInRole={loggedInRole} onLogout={handleLogout} />
                 </div>
               </nav>
             </PopoverContent>

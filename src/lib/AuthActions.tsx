@@ -1,17 +1,21 @@
 import { Button } from "@/components/ui/button";
+import type { TRole } from "@/types/interface";
 import { Link } from "react-router";
+import { getRedirectPath } from "./getRedirectPath";
 
 export default function AuthActions({
-  loggedIn,
+  loggedInRole,
   onLogout,
 }: {
-  loggedIn: boolean;
+  loggedInRole: TRole;
   onLogout: () => void;
-}) {
-  return loggedIn ? (
+  }) {
+ const to =getRedirectPath(loggedInRole)
+ 
+  return loggedInRole ? (
     <div className="flex flex-col lg:flex-row gap-2">
       <Button asChild size="sm">
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to={to}>Dashboard</Link>
       </Button>
       <Button size="sm" onClick={onLogout}>
         Logout
