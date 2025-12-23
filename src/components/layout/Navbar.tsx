@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ModeToggle } from "./ModeToggle";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 
 import { useAppDispatch } from "@/redux/hook";
 import { toast } from "sonner";
@@ -41,6 +41,7 @@ export default function Navbar() {
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation(); // ✅ get current path
 
   const loggedIn = Boolean(data?.data?.email);
 
@@ -56,10 +57,7 @@ export default function Navbar() {
 
   return (
     <header className="container mx-auto px-4">
-      {/* 
-        lg+: 3-column grid → left / center / right
-        <lg: flex → logo left, menu right
-      */}
+      {/* lg+: 3-column grid → left / center / right */}
       <div className="flex h-16 items-center justify-between lg:grid lg:grid-cols-3">
         {/* ================= LEFT ================= */}
         <div className="flex items-center gap-2">
@@ -74,7 +72,11 @@ export default function Navbar() {
               <NavigationMenuItem key={link.href}>
                 <NavigationMenuLink
                   asChild
-                  className="font-medium text-muted-foreground hover:text-primary"
+                  className={`font-medium ${
+                    location.pathname === link.href
+                      ? "dark:bg-card bg-gray-100"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   <Link to={link.href}>{link.label}</Link>
                 </NavigationMenuLink>
@@ -95,21 +97,26 @@ export default function Navbar() {
           {/* Mobile / Tablet Menu */}
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="outline" size="sm" className="lg:hidden">
+              <Button variant="outline" size="sm" className="lg:hidden p-2">
                 <Menu4/>
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-52 p-3">
-              <nav className="flex flex-col gap-3">
+              <nav className="flex flex-col gap-2">
                 {navigationLinks.map((link) => (
                   <Link
                     key={link.href}
                     to={link.href}
-                    className="text-sm font-medium text-muted-foreground hover:text-primary"
+                    className={`text-sm font-medium block px-2 py-1 rounded-sm ${
+                      location.pathname === link.href
+                        ? "bg-secondary"
+                        : "text-muted-foreground hover:text-primary hover:bg-muted/10"
+                    }`}
                   >
                     {link.label}
                   </Link>
                 ))}
+
                 <div className="border-t pt-3">
                   <AuthActions loggedIn={loggedIn} onLogout={handleLogout} />
                 </div>
