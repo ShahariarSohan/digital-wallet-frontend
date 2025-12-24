@@ -22,6 +22,8 @@ import ResetPassword from "@/pages/ResetPassword";
 import GetResetPassword from "@/pages/GetResetPassword";
 import VerifyOtp from "@/pages/VerifyOtp";
 import NotFound from "@/pages/NotFound";
+import PrivacyPolicy from "@/pages/Privacy";
+import Privacy from "@/pages/Privacy";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,10 @@ const router = createBrowserRouter([
         Component: Contact,
         path: "contact",
       },
+      {
+        Component: Privacy,
+        path:"privacy"
+      }
     ],
   },
   {
@@ -101,6 +107,10 @@ const router = createBrowserRouter([
   {
     Component: withAuth(VerifyOtp, ...(Object.values(role) as TRole[])),
     path: "/verify",
+  },
+  {
+    path: "/privacy",
+    Component: PrivacyPolicy,
   },
   {
     path: "*",
