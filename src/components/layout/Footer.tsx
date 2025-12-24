@@ -2,10 +2,10 @@ import Logo from "@/assets/icons/Logo";
 import {
   Mail,
   Phone,
-  Facebook,
-  Linkedin,
   Globe,
   MessageCircle,
+  Facebook,
+  Linkedin,
 } from "lucide-react";
 import { Link } from "react-router";
 
@@ -138,11 +138,11 @@ export default function Footer() {
                 <Globe className="w-4 h-4" />
               </a>
               <a
-                href="https://www.facebook.com/mdshahariar.sohan"
+                href="https://m.me/mdshahariar.sohan"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all"
-                aria-label="Facebook"
+                aria-label="Messenger"
               >
                 <Facebook className="w-4 h-4" />
               </a>

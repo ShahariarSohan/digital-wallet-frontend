@@ -30,7 +30,7 @@ export const HeroSection = ({
   buttons = {
     primary: {
       text: "Read More",
-      url: "https://www.shadcnblocks.com",
+      url: "/about",
     },
   },
   image = {
@@ -41,7 +41,7 @@ export const HeroSection = ({
   return (
     <section className="py-10 md:py-20">
       <div>
-        <div className="flex flex-col-reverse items-center  justify-center gap-8 lg:flex-row">
+        <div className="flex flex-col-reverse items-center  justify-center  gap-8 lg:gap-32 lg:flex-row">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">
               {heading}
@@ -54,10 +54,10 @@ export const HeroSection = ({
               wallet. Send, receive, and manage money anytime, anywhere—safe
               and hassle-free.
             </p>
-            <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
+            <div className="flex w-full flex-col justify-center items-center gap-2 sm:flex-row lg:justify-start">
               {buttons.primary && (
-                <Button asChild className="w-full sm:w-auto">
-                  <Link id={`read-more`} to="/about">{buttons.primary.text}</Link>
+                <Button asChild className="w-1/2 md:w-auto">
+                  <Link id={`read-more`} to={buttons.primary.url}>{buttons.primary.text}</Link>
                 </Button>
               )}
             </div>
@@ -65,7 +65,7 @@ export const HeroSection = ({
           <img
             src={image.src}
             alt={image.alt}
-            className="max-h-96 w-full rounded-md object-cover"
+            className="max-h-96 w-3/4 lg:1/4  rounded-md object-cover"
           />
         </div>
       </div>

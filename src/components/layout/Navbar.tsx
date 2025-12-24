@@ -109,7 +109,7 @@ export default function Navbar() {
                     to={link.href}
                     className={`text-sm font-medium block px-2 py-1 rounded-sm ${
                       location.pathname === link.href
-                        ? "bg-secondary"
+                        ? "bg-card"
                         : "text-muted-foreground hover:text-primary hover:bg-muted/10"
                     }`}
                   >
