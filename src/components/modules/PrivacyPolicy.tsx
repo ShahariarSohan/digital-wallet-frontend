@@ -7,7 +7,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { policySections, quickFacts } from "@/constants/policy";
+import { policySections, quickFacts } from "@/constants/policy.data";
 
 const PrivacyPolicy = () => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
@@ -85,10 +85,10 @@ const PrivacyPolicy = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 rounded-xl font-semibold whitespace-nowrap transition-all ${
+              className={`px-6 py-3 rounded-lg font-semibold whitespace-nowrap transition-all ${
                 activeTab === tab
                   ? "bg-gradient-to-r from-primary to-primary text-foreground shadow-lg"
-                  : "bg-primary text-foreground"
+                  : "bg-primary/20 text-foreground/60 hover:bg-primary/30" // faded style for inactive
               }`}
             >
               {tab === "overview" ? "Quick Overview" : "Detailed Policy"}

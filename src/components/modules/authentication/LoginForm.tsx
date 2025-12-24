@@ -88,7 +88,7 @@ export const LoginForm = ({
     const credentials = DEMO_CREDENTIALS[role];
     form.setValue("email", credentials.email);
     form.setValue("password", credentials.password);
-    toast.info(
+    toast.success(
       `${role.charAt(0).toUpperCase() + role.slice(1)} credentials loaded`
     );
   };

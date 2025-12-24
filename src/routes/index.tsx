@@ -24,6 +24,7 @@ import VerifyOtp from "@/pages/VerifyOtp";
 import NotFound from "@/pages/NotFound";
 import PrivacyPolicy from "@/pages/Privacy";
 import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         Component: Privacy,
         path:"privacy"
+      },
+      {
+        Component:Terms,
+        path:"terms"
       }
     ],
   },

@@ -1,4 +1,4 @@
-import { CheckCircle2, Database, Eye, FileText, Shield, Users } from "lucide-react";
+import { CheckCircle2, Database, Eye, FileText, KeyRound, Shield, Users } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 export interface IPolicySection {
   id: string;
@@ -109,7 +109,7 @@ export const policySections:IPolicySection[] = [
   },
   {
     id: "security",
-    icon:Shield,
+    icon:KeyRound,
     title: "Data Security",
     summary: "How we protect your information",
     content: [
@@ -177,7 +177,7 @@ export interface IQuickFact {
   value: string;
 }
  export  const quickFacts:IQuickFact[] = [
-    { icon: Shield, label: "Bank-Grade Encryption", value: "256-bit SSL" },
+    { icon: KeyRound, label: "Bank-Grade Encryption", value: "256-bit SSL" },
     { icon: Shield, label: "Data Protection", value: "GDPR Compliant" },
     { icon: Eye, label: "Transparency", value: "100%" },
     { icon: CheckCircle2, label: "Regular Audits", value: "Quarterly" },
