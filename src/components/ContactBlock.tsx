@@ -31,8 +31,8 @@ interface Contact2Props {
 export const ContactBlock = ({
   title = "Contact Us",
   description = "We are available for questions, feedback, or collaboration opportunities. Let us know how we can help!",
-  phone = "(123) 34567890",
-  email = "ePay@gmail.com",
+  phone = "+880 1622 143630",
+  email = "sohanshahariar4@gmail.com",
 }: Contact2Props) => {
   const form = useForm({
     defaultValues: {
