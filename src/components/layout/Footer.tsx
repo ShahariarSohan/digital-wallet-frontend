@@ -17,7 +17,7 @@ import { Link } from "react-router";
 export default function Footer() {
   return (
     <footer className="border-t border-border/40 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+      <div className="container mx-auto py-12 px-4">
         {/* Top Section */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Brand Column */}
