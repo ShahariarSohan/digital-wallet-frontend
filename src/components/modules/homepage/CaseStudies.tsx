@@ -9,7 +9,7 @@ export const CaseStudies = () => {
     refetchOnMountOrArgChange: true,
   });
   const userData = data?.data;
- 
+
   return (
     <Suspense fallback={<WalletLoader></WalletLoader>}>
       <section className="py-10 rounded-lg">
@@ -19,7 +19,7 @@ export const CaseStudies = () => {
               <WalletLoader />
             ) : (
               <p className="text-4xl text-primary font-bold">
-                {userData.totalUsers}+ Happy Active Users
+                {userData?.totalUsers ?? 0}+ Happy Active Users
               </p>
             )}
           </div>
