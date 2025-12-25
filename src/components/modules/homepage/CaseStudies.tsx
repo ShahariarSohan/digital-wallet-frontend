@@ -11,8 +11,8 @@ export const CaseStudies = () => {
   const userData=data?.data
   return (
     <Suspense fallback={<WalletLoader></WalletLoader>}>
-      <section className="py-10 lg:py-32 rounded-lg">
-        <div className="container">
+      <section className="py-10 rounded-lg">
+        <div className="container mx-auto">
           <div className="flex flex-col gap-6 text-center">
             {isLoading ? (
               <WalletLoader></WalletLoader>
