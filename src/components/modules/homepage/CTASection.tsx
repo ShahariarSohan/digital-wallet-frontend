@@ -255,10 +255,10 @@ const CTASection = () => {
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-8 -right-8 w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-2xl flex items-center justify-center animate-bounce">
+              <div className="hidden absolute -top-8 -right-8 w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-2xl md:flex items-center justify-center animate-bounce">
                 <span className="text-white text-2xl font-bold">🎉</span>
               </div>
-              <div className="absolute -bottom-8 -left-8 w-20 h-20 bg-gradient-to-br from-secondary to-primary rounded-2xl shadow-2xl flex items-center justify-center animate-pulse">
+              <div className=" hidden absolute -bottom-8 -left-8 w-20 h-20  bg-gradient-to-br from-secondary to-primary rounded-2xl shadow-2xl md:flex items-center justify-center animate-pulse">
                 <Lock className="w-10 h-10 text-white" />
               </div>
             </div>
