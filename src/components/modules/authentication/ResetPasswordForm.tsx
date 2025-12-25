@@ -136,7 +136,7 @@ export const ResetPasswordForm = ({
             <Button
               form="reset_password_form"
               type="submit"
-              className="w-full bg-primary mt-2"
+              className="w-full bg-primary text-foreground mt-2"
             >
               {buttonText}
             </Button>

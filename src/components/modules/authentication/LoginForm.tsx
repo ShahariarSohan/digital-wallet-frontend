@@ -153,7 +153,7 @@ export const LoginForm = ({
             <Button
               form="login_form"
               type="submit"
-              className="w-full bg-primary mt-2"
+              className="w-full bg-primary mt-2 text-foreground"
               disabled={isLoading}
             >
               {isLoading ? (

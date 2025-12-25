@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Wallet,
   Send,
@@ -64,8 +64,8 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-b from-primary/5 via-secondary/5 to-primary/5 rounded-sm">
-      <div className=" mx-auto px-6">
+    <section className="container mx-auto py-16 bg-gradient-to-b from-primary/5 via-secondary/5 to-primary/5 rounded-lg mb-10">
+      <div className="px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">

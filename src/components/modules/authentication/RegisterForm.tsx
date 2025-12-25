@@ -25,6 +25,7 @@ import {
 
 import { toast } from "sonner";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import { Loader2 } from "lucide-react";
 interface Login2Props {
   heading?: string;
   logo?: {
@@ -78,7 +79,7 @@ export const RegisterForm = ({
 }: Login2Props) => {
   const roles: IRole[] = [{ role: "user" }, { role: "agent" }];
   const navigate = useNavigate();
-  const [register] = useRegisterMutation();
+  const [register,{isLoading}] = useRegisterMutation();
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -229,9 +230,16 @@ export const RegisterForm = ({
             <Button
               form="register_form"
               type="submit"
-              className="w-full bg-primary mt-2"
+              className="w-full bg-primary text-foreground mt-2"
             >
-              {buttonText}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Registering...
+                </>
+              ) : (
+                buttonText
+              )}
             </Button>
           </div>
           <div className="text-muted-foreground flex justify-center gap-1 text-sm">
