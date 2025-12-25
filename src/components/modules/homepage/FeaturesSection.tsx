@@ -174,7 +174,7 @@ const FeaturesSection = () => {
         {/* CTA */}
         <div className="mt-16 text-center">
           <Link to="/features">
-            <button className="group px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-background rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-3">
+            <button className="group px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-foreground rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-3">
               Explore All Features
               <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
                 <span className="text-xs">→</span>

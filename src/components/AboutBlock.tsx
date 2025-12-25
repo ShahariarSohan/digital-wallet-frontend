@@ -1,29 +1,6 @@
 import { AboutBlock2 } from "./AboutBlock2";
 
-interface About3Props {
-  title?: string;
-  description?: string;
-  mainImage?: {
-    src: string;
-    alt: string;
-  };
-  secondaryImage?: {
-    src: string;
-    alt: string;
-  };
-  breakout?: {
-    src: string;
-    alt: string;
-    title?: string;
-    description?: string;
-    buttonText?: string;
-    buttonUrl?: string;
-  };
-  companiesTitle?: string;
-  companies?: Array<{
-    src: string;
-    alt: string;
-  }>;
+interface AboutProps {
   achievementsTitle?: string;
   achievementsDescription?: string;
   achievements?: Array<{
@@ -32,142 +9,158 @@ interface About3Props {
   }>;
 }
 
-
 const defaultAchievements = [
   { label: "Active Users", value: "1M+" },
   { label: "Transactions Processed", value: "10M+" },
   { label: "Customer Satisfaction", value: "98%" },
   { label: "Merchants Onboarded", value: "500+" },
 ];
-
+const members = [
+  {
+    name: "Nabil Khan",
+    role: "Founder & CEO",
+    img: "https://i.ibb.co.com/mrfMpKwn/cheerful-man-stands-arms-confidently-260nw-2446919397.webp",
+  },
+  {
+    name: "Amit Roy",
+    role: "Chief Technology Officer",
+    img: "https://i.ibb.co.com/C3nW3Cpr/attractive-young-charming-guy-smiles-260nw-1294180975.webp",
+  },
+  {
+    name: "Nur Alam",
+    role: "Chief Financial Officer",
+    img: "https://i.ibb.co.com/FkY7582G/images-4.jpg",
+  },
+];
 export const AboutBlock = ({
-  
-  achievementsTitle = "Our Impact in Numbers",
-  achievementsDescription = "ePay Wallet has transformed how millions of users manage money, offering speed, reliability, and security for every transaction.",
+  achievementsTitle = "Trusted by Millions",
+  achievementsDescription = `ePay Wallet continues to grow as a secure, reliable, and user-centric digital financial platform.`,
   achievements = defaultAchievements,
-}: About3Props = {}) => {
+}: AboutProps) => {
   return (
-    <section className="py-10 lg:py-20">
-      <div className="container">
-        {/* Mission */}
-        <div className="py-10 text-center">
-          <h2 className="text-4xl font-semibold">Our Mission</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
-            Our mission is to empower individuals and businesses with a secure,
-            easy-to-use, and inclusive financial ecosystem. At ePay, we believe
-            digital payments should be accessible to everyone, everywhere.
+    <section className="py-14 lg:py-24">
+      <div className="container space-y-24">
+        {/* Company Introduction */}
+        <div className="text-center max-w-3xl mx-auto">
+          <h1 className="text-4xl lg:text-5xl font-bold">
+            About <span className="text-primary italic">ePay</span> Wallet
+          </h1>
+          <p className="mt-6 text-muted-foreground">
+            <span className="text-primary italic text-2xl font-bold">ePay</span> Wallet is
+            a modern digital payment platform built to simplify financial
+            transactions for individuals and businesses. We focus on speed,
+            security, and accessibility — enabling people to manage money
+            confidently in an increasingly digital world.
           </p>
         </div>
-        {/* Values & Principles */}
+
+        {/* Mission, Vision, Values */}
+        <div className="grid gap-10 md:grid-cols-3 text-center md:text-left">
+          <div>
+            <h3 className="text-xl font-medium">Our Mission</h3>
+            <p className="mt-3 text-muted-foreground">
+              To empower users with seamless, secure, and inclusive digital
+              financial solutions that fit into everyday life.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-medium">Our Vision</h3>
+            <p className="mt-3 text-muted-foreground">
+              To become a trusted digital financial ecosystem that removes
+              barriers and enables financial freedom for everyone.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-medium">Our Values</h3>
+            <p className="mt-3 text-muted-foreground">
+              Trust, simplicity, innovation, and customer-first thinking guide
+              every decision we make.
+            </p>
+          </div>
+        </div>
+
+        {/* Core Principles / Values Block */}
         <AboutBlock2 />
 
-        {/* Service Story */}
-        <div className="py-10 lg:py-32 grid gap-16">
-          {/* Intro Section */}
+        {/* Product Story */}
+        <div className="grid gap-16 container mx-auto">
           <div>
-            <h2 className="text-4xl font-semibold">Our Story</h2>
+            <h2 className="text-3xl font-semibold">Our Story</h2>
             <p className="mt-4 text-muted-foreground">
-              ePay Wallet was born out of a simple but powerful idea: to make
-              financial services accessible, fast, and trustworthy for everyone.
-              In a world where many still face challenges in managing money
-              digitally, we set out to create a platform that puts people first.
-              From day one, our mission has been to bridge the gap between
-              technology and trust, ensuring that every transaction is not just
-              seamless, but secure.
+              <span className="text-primary italic text-2xl font-bold">ePay</span> Wallet was
+              created to solve a simple but critical problem — managing money
+              digitally should not be complicated or exclusive. We started with
+              a clear goal: build a platform that anyone can use, whether for
+              sending money, paying bills, or running a business.
             </p>
           </div>
 
-          {/* Journey Section */}
           <div>
-            <h3 className="text-2xl font-medium">The Journey</h3>
-            <p className="mt-2 text-muted-foreground">
-              What began as a small startup quickly grew into a reliable digital
-              wallet trusted by thousands of users. Our early days were driven
-              by passion, late-night brainstorming sessions, and a relentless
-              focus on solving real financial problems. Over time, we expanded
-              our features — from instant money transfers and mobile top-ups to
-              bill payments and merchant solutions — each one designed with
-              simplicity and speed in mind. Today, ePay Wallet is more than a
-              payment app; it’s a financial companion that empowers people to
-              take control of their money, anytime, anywhere.
+            <h3 className="text-2xl font-medium">How We Evolved</h3>
+            <p className="mt-3 text-muted-foreground">
+              From a small idea to a growing fintech platform, our journey has
+              been driven by real user needs. Each feature we launch is designed
+              to be fast, intuitive, and reliable — ensuring our users always
+              stay in control of their finances.
             </p>
           </div>
 
-          {/* Future Section */}
           <div>
-            <h3 className="text-2xl font-medium">Looking Ahead</h3>
-            <p className="mt-2 text-muted-foreground">
-              Our story is still being written. As we look toward the future, we
-              remain committed to building smarter, safer, and more innovative
-              financial tools. We envision a world where digital payments aren’t
-              just convenient but inclusive — breaking barriers for people in
-              remote areas, small businesses, and communities that have been
-              underserved for too long. With technology as our backbone and
-              people as our purpose, ePay Wallet will continue to redefine what
-              financial freedom looks like.
+            <h3 className="text-2xl font-medium">What’s Next</h3>
+            <p className="mt-3 text-muted-foreground">
+              We are continuously expanding our services, strengthening
+              security, and exploring smarter financial tools. Our roadmap is
+              focused on long-term trust, scalability, and innovation.
             </p>
           </div>
         </div>
 
-        {/* Team Section */}
-        <div className="py-10 lg:py-20 text-center">
-          <h2 className="text-4xl font-semibold">Meet Our Team</h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            Behind ePay is a diverse team of innovators, engineers, and
-            financial experts committed to building the future of digital
-            payments.
-          </p>
-
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center">
-              <img
-                src="https://i.ibb.co.com/mrfMpKwn/cheerful-man-stands-arms-confidently-260nw-2446919397.webp"
-                alt="CEO"
-                className="w-32 h-32 rounded-full object-cover shadow-md"
-              />
-              <h3 className="mt-4 text-lg font-medium">Nabil Khan</h3>
-              <p className="text-muted-foreground">Founder & CEO</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://i.ibb.co.com/C3nW3Cpr/attractive-young-charming-guy-smiles-260nw-1294180975.webp"
-                alt="CTO"
-                className="w-32 h-32 rounded-full object-cover shadow-md"
-              />
-              <h3 className="mt-4 text-lg font-medium">Amit Roy</h3>
-              <p className="text-muted-foreground">Chief Technology Officer</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://i.ibb.co.com/FkY7582G/images-4.jpg"
-                alt="CFO"
-                className="w-32 h-32 rounded-full object-cover shadow-md"
-              />
-              <h3 className="mt-4 text-lg font-medium">Nur Alam</h3>
-              <p className="text-muted-foreground">Chief Financial Officer</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Achievements */}
+        {/* Impact / Achievements */}
         <div className="relative overflow-hidden rounded-xl bg-muted p-10 md:p-16">
-          <div className="flex flex-col gap-4 text-center md:text-left">
-            <h2 className="text-4xl font-semibold">{achievementsTitle}</h2>
-            <p className="max-w-xl text-muted-foreground">
+          <div className="max-w-xl">
+            <h2 className="text-3xl font-semibold">{achievementsTitle}</h2>
+            <p className="mt-3 text-muted-foreground">
               {achievementsDescription}
             </p>
           </div>
-          <div className="mt-10 flex flex-col md:flex-row md:flex-wrap justify-between gap-10 text-center">
-            {achievements.map((item, idx) => (
-              <div className="flex flex-col gap-4" key={item.label + idx}>
-                <p>{item.label}</p>
-                <span className="text-4xl text-primary font-semibold md:text-5xl">
+
+          <div className="mt-10 grid gap-10 sm:grid-cols-2 md:grid-cols-4 text-center">
+            {achievements.map((item) => (
+              <div key={item.label} className="space-y-2">
+                <span className="text-4xl md:text-5xl font-semibold text-primary">
                   {item.value}
                 </span>
+                <p className="text-sm text-muted-foreground">{item.label}</p>
               </div>
             ))}
           </div>
-          <div className="pointer-events-none absolute -top-1 right-1 z-10 hidden h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] [mask-image:linear-gradient(to_bottom_right,#000,transparent,transparent)] bg-[size:80px_80px] opacity-15 md:block"></div>
+
+          <div className="pointer-events-none absolute inset-0 hidden md:block bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] bg-[size:80px_80px] opacity-10" />
+        </div>
+
+        {/* Team */}
+        <div className="text-center">
+          <h2 className="text-3xl font-semibold">Leadership Team</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
+            Our leadership team brings together experience in technology,
+            finance, and product innovation.
+          </p>
+
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {members.map((member) => (
+              <div key={member.name} className="flex flex-col items-center">
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  className="w-32 h-32 rounded-full object-cover shadow-md"
+                />
+                <h3 className="mt-4 font-medium">{member.name}</h3>
+                <p className="text-sm text-muted-foreground">{member.role}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

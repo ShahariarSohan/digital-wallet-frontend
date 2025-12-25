@@ -1,116 +1,164 @@
 "use client";
 
-import { BarChart3, CreditCard, Globe, Headphones, ShieldCheck, Smartphone, Store, Wallet } from "lucide-react";
-
-
+import {
+  Wallet,
+  Send,
+  Download,
+  Upload,
+  ShieldCheck,
+  Clock,
+  CheckCircle2,
+} from "lucide-react";
 
 export const FeaturesBlock = () => {
-  const services = [
+  const features = [
     {
-      icon: <Wallet className="h-6 w-6" />,
-      title: "Digital Payments",
+      icon: Send,
+      title: "Send Money",
       description:
-        "Fast, secure, and reliable digital transactions designed for everyday needs.",
-      items: ["Send & Receive Money", "Bill Payments", "Mobile Recharge"],
-    },
-    {
-      icon: <ShieldCheck className="h-6 w-6" />,
-      title: "Security",
-      description:
-        "Advanced encryption and authentication to keep your money and data safe.",
-      items: [
-        "Fraud Protection",
-        "Two-Factor Authentication",
-        "Data Encryption",
+        "Transfer funds instantly to any registered wallet with enterprise-grade speed and reliability.",
+      points: [
+        "Instant peer-to-peer transfers",
+        "Low-latency transaction processing",
+        "Real-time confirmation & notifications",
       ],
+      stat: "< 2s average processing time",
     },
     {
-      icon: <CreditCard className="h-6 w-6" />,
-      title: "Financial Services",
+      icon: Download,
+      title: "Cash In",
       description:
-        "Empowering users with convenient financial solutions beyond payments.",
-      items: ["Savings", "Loan Access", "Card Linking"],
+        "Seamlessly add money to your wallet through trusted agents or secure bank transfers.",
+      points: [
+        "Agent-based deposits",
+        "Bank & online channel support",
+        "24/7 availability",
+      ],
+      stat: "Always available",
     },
     {
-      icon: <BarChart3 className="h-6 w-6" />,
-      title: "Growth & Insights",
+      icon: Upload,
+      title: "Cash Out",
       description:
-        "Tools to help users and businesses track, manage, and scale financial activities.",
-      items: ["Expense Tracking", "Analytics", "Business Dashboard"],
+        "Withdraw your wallet balance anytime from nearby authorized agents.",
+      points: [
+        "Wide agent network",
+        "Fast cash withdrawal",
+        "Secure verification process",
+      ],
+      stat: "1000+ active agents",
     },
     {
-      icon: <Globe className="h-6 w-6" />,
-      title: "Global Transfers",
+      icon: Wallet,
+      title: "Smart Wallet",
       description:
-        "Seamless cross-border money transfers with competitive rates and real-time speed.",
-      items: ["Remittance", "Multi-Currency Support", "Instant Transfers"],
+        "A secure, auto-created digital wallet with real-time balance tracking and transaction safety.",
+      points: [
+        "Auto wallet creation",
+        "Live balance updates",
+        "Encrypted data storage",
+      ],
+      stat: "256-bit encryption",
     },
     {
-      icon: <Smartphone className="h-6 w-6" />,
-      title: "Mobile Experience",
+      icon: ShieldCheck,
+      title: "Secure Authentication",
       description:
-        "A smooth and intuitive mobile app designed for effortless financial management.",
-      items: ["Easy Navigation", "Quick Actions", "24/7 Access"],
+        "Robust authentication system designed to protect accounts and transactions.",
+      points: [
+        "JWT-based authentication",
+        "OTP verification",
+        "Fraud & misuse protection",
+      ],
+      stat: "99.99% secure",
     },
     {
-      icon: <Headphones className="h-6 w-6" />,
-      title: "Customer Support",
+      icon: Clock,
+      title: "Transaction History",
       description:
-        "Dedicated assistance to keep your transactions and services running smoothly.",
-      items: ["24/7 Chat", "Help Center", "Personalized Support"],
-    },
-    {
-      icon: <Store className="h-6 w-6" />,
-      title: "Merchant Solutions",
-      description:
-        "Empowering businesses with secure payment options and customer engagement tools.",
-      items: ["POS Integration", "QR Payments", "Merchant Dashboard"],
+        "Detailed transaction logs with filters for complete financial transparency.",
+      points: [
+        "Live transaction updates",
+        "Search & filter support",
+        "Downloadable records",
+      ],
+      stat: "Real-time tracking",
     },
   ];
 
   return (
-    <section className="py-10 md:py-32">
+    <section className="py-20 md:py-32 bg-background">
       <div className="container">
-        <div className="mx-auto max-w-6xl space-y-12">
-          <div className="space-y-4 text-center">
-            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              Features
-            </h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg tracking-tight md:text-xl">
-              We craft digital experiences that makes your payments secure , simple and user friendly.
-            </p>
-          </div>
+        {/* Header */}
+        <div className="mx-auto mb-20 max-w-4xl text-center space-y-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground">
+            Powerful Features, Built for Scale
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground">
+            A deeper look into the enterprise-grade capabilities that power our
+            digital wallet ecosystem.
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {services.map((service, index) => (
+        {/* Feature Blocks */}
+        <div className="space-y-10">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+
+            return (
               <div
                 key={index}
-                className="border-border space-y-6 rounded-lg border p-8 transition-shadow hover:shadow-sm"
+                className="group relative rounded-2xl border border-border p-8 md:p-12 transition-all hover:shadow-lg"
               >
-                <div className="flex items-center gap-4">
-                  <div className="bg-muted rounded-full p-3">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold">{service.title}</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
-                <div className="space-y-2">
-                  {service.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="flex items-center gap-2">
-                      <div className="bg-foreground h-1.5 w-1.5 rounded-full" />
-                      <span className="text-sm font-medium">{item}</span>
+                <div className="grid gap-8 md:grid-cols-3">
+                  {/* Icon */}
+                  <div className="flex items-start gap-4">
+                    <div className="rounded-xl bg-gradient-to-br from-primary to-secondary p-4">
+                      <Icon className="h-7 w-7 text-primary-foreground" />
                     </div>
-                  ))}
+                    <div>
+                      <h3 className="text-2xl font-semibold text-foreground">
+                        {feature.title}
+                      </h3>
+                      <p className="mt-2 text-muted-foreground">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Details */}
+                  <div className="md:col-span-2 space-y-4">
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {feature.points.map((point, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 text-foreground"
+                        >
+                          <CheckCircle2 className="h-4 w-4 text-primary" />
+                          <span className="text-sm font-medium">{point}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Stat */}
+                    <div className="pt-4 border-t border-border flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">
+                        Performance
+                      </span>
+                      <span className="font-semibold text-foreground">
+                        {feature.stat}
+                      </span>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Subtle hover glow */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 transition-opacity group-hover:opacity-100" />
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 };
-
-

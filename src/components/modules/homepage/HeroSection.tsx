@@ -56,7 +56,7 @@ export const HeroSection = ({
             </p>
             <div className="flex w-full flex-col justify-center items-center gap-2 sm:flex-row lg:justify-start">
               {buttons.primary && (
-                <Button asChild className="w-1/2 md:w-auto">
+                <Button asChild className="w-1/2 md:w-auto text-foreground">
                   <Link id={`read-more`} to={buttons.primary.url}>{buttons.primary.text}</Link>
                 </Button>
               )}

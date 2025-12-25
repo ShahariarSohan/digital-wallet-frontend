@@ -22,9 +22,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Brand Column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-primary">
+            <div className="flex items-center gap-2">
               <Logo />
-              <h2 className="text-2xl font-bold italic">ePay</h2>
+              <h2 className="text-xl font-bold italic">Pay</h2>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               Simplify your transactions with our secure, fast, and reliable

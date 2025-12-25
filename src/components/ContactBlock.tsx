@@ -155,7 +155,7 @@ export const ContactBlock = ({
               <Button
                 form="message_form"
                 type="submit"
-                className="w-full bg-primary mt-2"
+                className="w-full bg-primary mt-2 text-foreground"
               >
                 Send Message
               </Button>
