@@ -26,6 +26,7 @@ import {
 import { toast } from "sonner";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { Loader2 } from "lucide-react";
+import  { registerSchema } from "@/zod/authSchema";
 interface Login2Props {
   heading?: string;
   logo?: {
@@ -42,36 +43,7 @@ interface Login2Props {
 interface IRole {
   role: "user" | "agent";
 }
-const registerSchema = z
-  .object({
-    name: z
-      .string()
-      .min(3, { error: "Name must be at least 3 characters" })
-      .max(50),
-    email: z.email(),
-    password: z
-      .string()
-      .min(8, { error: "Password must be at least 8 characters" })
-      .regex(/.*[A-Z].*/, {
-        message: `Password must be at least 1 uppercase letter`,
-      })
-      .regex(/.*\d.*/, { message: `Password must be at least 1 number` })
-      .regex(/[!@#$%^&*?]/, {
-        message: `Password must be at least 1 special character`,
-      }),
-    confirmPassword: z
-      .string()
-      .min(8, { error: "Confirm Password must be at least 8 characters" }),
-    role: z
-      .string()
-      .refine((val) => val === "user" || val === "agent", {
-        message: "Role must be either 'user' or 'agent'",
-      }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    error: "Password don't match",
-    path: ["confirmPassword"],
-  });
+
 export const RegisterForm = ({
   heading = "Register",
   buttonText = "Register",
@@ -79,7 +51,7 @@ export const RegisterForm = ({
 }: Login2Props) => {
   const roles: IRole[] = [{ role: "user" }, { role: "agent" }];
   const navigate = useNavigate();
-  const [register,{isLoading}] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -90,7 +62,6 @@ export const RegisterForm = ({
       role: "user",
     },
   });
-  
 
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     console.log(data);
@@ -105,8 +76,8 @@ export const RegisterForm = ({
       const res = await register(userInfo).unwrap();
       console.log(res);
       toast.success("Successfully registered");
-      form.reset()
-      navigate("/verify", { state: {email: data.email,name: data.name } });
+      form.reset();
+      navigate("/verify", { state: { email: data.email, name: data.name } });
     } catch (error) {
       console.error(error);
       toast.error("Registration failed");
@@ -250,6 +221,13 @@ export const RegisterForm = ({
             >
               Login
             </Link>
+          </div>
+          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
+            {" "}
+            <Link to="/" className="text-primary font-medium hover:underline">
+              {" "}
+              ← Go back to Home{" "}
+            </Link>{" "}
           </div>
         </div>
       </div>

@@ -22,25 +22,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+import  { loginSchema } from "@/zod/authSchema";
 
 /* -------------------- ZOD SCHEMA -------------------- */
-const loginSchema = z.object({
-  email: z.email({
-    message: "Invalid email address",
-  }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" })
-    .regex(/.*[A-Z].*/, {
-      message: "Password must contain at least 1 uppercase letter",
-    })
-    .regex(/.*\d.*/, {
-      message: "Password must contain at least 1 number",
-    })
-    .regex(/[!@#$%^&*?]/, {
-      message: "Password must contain at least 1 special character",
-    }),
-});
+
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -224,6 +209,13 @@ export const LoginForm = ({
             <Link to="/register" className="text-primary hover:underline">
               Register
             </Link>
+          </div>
+          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
+            {" "}
+            <Link to="/" className="text-primary font-medium hover:underline">
+              {" "}
+              ← Go back to Home{" "}
+            </Link>{" "}
           </div>
         </div>
       </div>
