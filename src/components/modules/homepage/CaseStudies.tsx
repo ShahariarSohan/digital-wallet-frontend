@@ -5,26 +5,23 @@ import { useAllUserStatsQuery } from "@/redux/features/stats/stats.api";
 import { Suspense } from "react";
 
 export const CaseStudies = () => {
-    const { data,isLoading} = useAllUserStatsQuery(undefined, {
-      refetchOnMountOrArgChange: true,
-    });
-  const userData=data?.data
+  const { data, isLoading } = useAllUserStatsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+  const userData = data?.data;
+ 
   return (
     <Suspense fallback={<WalletLoader></WalletLoader>}>
       <section className="py-10 rounded-lg">
         <div className="container mx-auto">
-          <div className="flex flex-col gap-6 text-center">
-            {isLoading ? (
-              <WalletLoader></WalletLoader>
+          <div className="text-sm font-semibold text-center text-foreground">
+            {isLoading || !userData ? (
+              <WalletLoader />
             ) : (
-              <p className=" text-4xl text-primary font-bold">
-                {userData?.totalUsers}+ Active Users
+              <p className="text-4xl text-primary font-bold">
+                {userData.totalUsers}+ Happy Active Users
               </p>
             )}
-
-            <h2 className="text-4xl font-medium md:text-5xl">
-              Real experiences from trusted users
-            </h2>
           </div>
           <div className="mt-20">
             <div className="grid gap-16 lg:grid-cols-3 xl:gap-24">
@@ -146,5 +143,3 @@ export const CaseStudies = () => {
     </Suspense>
   );
 };
-
-
