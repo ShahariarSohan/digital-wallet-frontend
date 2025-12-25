@@ -17,25 +17,39 @@ import { getRedirectPath } from "@/utils/getRedirectPath";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { Loader2 } from "lucide-react";
 
-import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { Link,  useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+
+/* -------------------- ZOD SCHEMA -------------------- */
+const loginSchema = z.object({
+  email: z.email({
+    message: "Invalid email address",
+  }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" })
+    .regex(/.*[A-Z].*/, {
+      message: "Password must contain at least 1 uppercase letter",
+    })
+    .regex(/.*\d.*/, {
+      message: "Password must contain at least 1 number",
+    })
+    .regex(/[!@#$%^&*?]/, {
+      message: "Password must contain at least 1 special character",
+    }),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 interface Login2Props {
   heading?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title?: string;
-  };
   buttonText?: string;
-  googleText?: string;
   signupText?: string;
   forgetPasswordText?: string;
 }
-
-// Demo credentials
 
 export const LoginForm = ({
   heading = "Login",
@@ -44,46 +58,43 @@ export const LoginForm = ({
   forgetPasswordText = "Forget your password?",
 }: Login2Props) => {
   const navigate = useNavigate();
-
-  
   const [login, { isLoading }] = useLoginMutation();
-  const form = useForm({
+
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const userInfo = {
-      email: data.email,
-      password: data.password,
-    };
+  const onSubmit = async (data: LoginFormValues) => {
     try {
-      const res = await login(userInfo).unwrap();
+      const res = await login(data).unwrap();
+
       if (res.success) {
         toast.success("Logged In Successfully");
         form.reset();
 
-        // Role-based redirection
         const userRole = res.data?.role || res.role;
         const redirectTo = getRedirectPath(userRole);
 
-        navigate(redirectTo||"/");
+        navigate(redirectTo || "/");
       }
     } catch (err: any) {
       console.error(err);
       if (
-        err.data.message === "Wrong Password" ||
-        err.data.message === "Account doesn't exist"
+        err?.data?.message === "Wrong Password" ||
+        err?.data?.message === "Account doesn't exist"
       ) {
         toast.error("Wrong credentials");
+      } else {
+        toast.error("Login failed");
       }
     }
   };
 
-  // Function to fill form with demo credentials
+  /* Demo Credentials */
   const fillDemoCredentials = (role: "admin" | "agent" | "user") => {
     const credentials = DEMO_CREDENTIALS[role];
     form.setValue("email", credentials.email);
@@ -96,13 +107,15 @@ export const LoginForm = ({
   return (
     <section className="bg-muted min-h-screen py-10">
       <div className="flex h-full items-center justify-center">
-        <div className="flex flex-col items-center gap-6 lg:justify-start">
+        <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-1 text-primary">
-            {" "}
-            <Logo></Logo> <h1 className=" text-xl font-bold italic">Pay</h1>
+            <Logo />
+            <h1 className="text-xl font-bold italic">Pay</h1>
           </div>
-          <div className="min-w-sm border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
+
+          <div className="min-w-sm bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md">
             {heading && <h1 className="text-xl font-semibold">{heading}</h1>}
+
             <div className="w-full">
               <Form {...form}>
                 <form
@@ -117,19 +130,16 @@ export const LoginForm = ({
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="JonDoe@company.com"
-                            type="email"
-                            {...field}
-                          />
+                          <Input type="email" {...field} />
                         </FormControl>
                         <FormDescription className="sr-only">
-                          This is your public display name.
+                          Email address
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+
                   <FormField
                     control={form.control}
                     name="password"
@@ -137,10 +147,10 @@ export const LoginForm = ({
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Password {...field}></Password>
+                          <Password {...field} />
                         </FormControl>
                         <FormDescription className="sr-only">
-                          This is your public display name.
+                          Password
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -166,65 +176,53 @@ export const LoginForm = ({
               )}
             </Button>
 
-            {/* Demo Credentials Section */}
+            {/* Demo Credentials */}
             <div className="w-full border-t pt-4 mt-2">
               <p className="text-xs text-muted-foreground text-center mb-3">
                 Quick Demo Login
               </p>
               <div className="grid grid-cols-3 gap-2">
                 <Button
-                  type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => fillDemoCredentials("admin")}
                   disabled={isLoading}
-                  className="text-xs"
                 >
                   Admin
                 </Button>
                 <Button
-                  type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => fillDemoCredentials("agent")}
                   disabled={isLoading}
-                  className="text-xs"
                 >
                   Agent
                 </Button>
                 <Button
-                  type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => fillDemoCredentials("user")}
                   disabled={isLoading}
-                  className="text-xs"
                 >
                   User
                 </Button>
               </div>
             </div>
           </div>
-          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
+
+          <div className="text-muted-foreground text-sm">
             <Link
               to="/forget-password"
-              className="text-primary font-medium hover:underline"
+              className="text-primary hover:underline"
             >
-              <p>{forgetPasswordText}</p>
+              {forgetPasswordText}
             </Link>
           </div>
-          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-            <p>{signupText}</p>
-            <Link
-              to="/register"
-              className="text-primary font-medium hover:underline"
-            >
+
+          <div className="text-muted-foreground text-sm">
+            {signupText}{" "}
+            <Link to="/register" className="text-primary hover:underline">
               Register
-            </Link>
-          </div>
-          <div className="text-muted-foreground flex justify-center gap-1 text-sm">
-            <Link to="/" className="text-primary font-medium hover:underline">
-              ← Go back to Home
             </Link>
           </div>
         </div>
