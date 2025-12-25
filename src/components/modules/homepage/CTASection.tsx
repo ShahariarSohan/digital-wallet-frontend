@@ -133,13 +133,13 @@ const CTASection = () => {
               </div>
               <div>
                 <div className="text-sm font-semibold text-foreground">
-                   {isLoading ? (
-                                <WalletLoader></WalletLoader>
-                              ) : (
-                                <p className=" text-xl text-primary font-bold">
-                                  {userData?.totalUsers}+ Happy Active Users
-                                </p>
-                              )}
+                  {isLoading ? (
+                    <WalletLoader></WalletLoader>
+                  ) : (
+                    <p className=" text-xl text-primary font-bold">
+                      {userData?.totalUsers}+ Happy Active Users
+                    </p>
+                  )}
                 </div>
                 <div className="text-sm text-foreground/70">
                   ⭐ Rated 4.9/5 by our community
@@ -157,7 +157,7 @@ const CTASection = () => {
                 {/* Screen */}
                 <div className="bg-gradient-to-b from-primary/5 to-secondary/5 rounded-[2.5rem] overflow-hidden">
                   {/* Status Bar */}
-                  <div className="bg-gradient-to-r from-primary to-secondary px-6 py-8 text-white">
+                  <div className="bg-gradient-to-r from-primary to-secondary px-6 py-8 text-primary-foreground">
                     <div className="flex justify-between items-center mb-6 text-sm">
                       <span>9:41</span>
                       <div className="flex gap-1">
@@ -166,7 +166,7 @@ const CTASection = () => {
                         <div className="w-4 h-4 bg-white rounded" />
                       </div>
                     </div>
-                    <div className="text-white/80 text-sm mb-1">
+                    <div className="text-primary-foreground/80 text-sm mb-1">
                       Total Balance
                     </div>
                     <div className="text-4xl font-bold mb-4">
@@ -195,7 +195,7 @@ const CTASection = () => {
                       return (
                         <div
                           key={idx}
-                          className="bg-white rounded-xl p-3 shadow-sm border border-primary/10"
+                          className="bg-card rounded-xl p-3 shadow-sm border border-primary/10"
                         >
                           <Icon className="w-5 h-5 text-foreground mb-1" />
                           <div className="text-xs text-foreground/70">
@@ -223,10 +223,10 @@ const CTASection = () => {
                       {recentTransactions.map((tx, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm border border-primary/10"
+                          className="flex items-center gap-3 bg-card rounded-xl p-3 shadow-sm border border-primary/10"
                         >
                           <div
-                            className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tx.color} flex items-center justify-center text-white font-bold`}
+                            className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tx.color} flex items-center justify-center text-primary-foreground font-bold`}
                           >
                             {tx.name[0]}
                           </div>
@@ -241,7 +241,7 @@ const CTASection = () => {
                           <div
                             className={`text-sm font-bold ${
                               tx.amount.startsWith("+")
-                                ? "text-foreground"
+                                ? "text-primary"
                                 : "text-foreground"
                             }`}
                           >
