@@ -14,16 +14,16 @@ export default function AuthActions({
   const to = getRedirectPath(loggedInRole);
 
   return loggedInRole ? (
-    <div className="flex flex-col lg:flex-row gap-2">
-      <Button asChild size="sm">
+    <div className="flex flex-col lg:flex-row gap-2 ">
+      <Button asChild size="sm" className="text-foreground">
         <Link to={to}>Dashboard</Link>
       </Button>
-      <Button size="sm" onClick={onLogout}>
+      <Button size="sm" className="text-foreground" onClick={onLogout}>
         Logout
       </Button>
     </div>
   ) : (
-    <Button asChild size="sm">
+    <Button asChild size="sm" className="text-foreground">
       <Link to="/login">Login</Link>
     </Button>
   );
