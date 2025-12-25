@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   ArrowRight,
   Smartphone,
@@ -9,6 +9,8 @@ import {
   Users,
 } from "lucide-react";
 import { Link } from "react-router";
+import { useAllUserStatsQuery } from "@/redux/features/stats/stats.api";
+import WalletLoader from "@/components/WalletLoader";
 
 const CTASection = () => {
   const [balance, setBalance] = useState(12500);
@@ -21,7 +23,10 @@ const CTASection = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-
+  const { data, isLoading } = useAllUserStatsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+  const userData = data?.data;
   const quickStats = [
     { icon: TrendingUp, label: "Growth", value: "+23%" },
     { icon: CreditCard, label: "Saved", value: "$500" },
@@ -128,7 +133,13 @@ const CTASection = () => {
               </div>
               <div>
                 <div className="text-sm font-semibold text-foreground">
-                  10,000+ Happy Users
+                   {isLoading ? (
+                                <WalletLoader></WalletLoader>
+                              ) : (
+                                <p className=" text-xl text-primary font-bold">
+                                  {userData?.totalUsers}+ Happy Active Users
+                                </p>
+                              )}
                 </div>
                 <div className="text-sm text-foreground/70">
                   ⭐ Rated 4.9/5 by our community
